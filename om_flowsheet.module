@@ -488,11 +488,11 @@ function om_flowsheet_permission()
 			'title' => t('om flowsheet bulk delete code'),
 			'restrict access' => TRUE
 		),
-		'om flowsheet upload abstract' => array(
+		'om flowsheet upload code' => array(
 			'title' => t('om flowsheet upload code'),
 			'restrict access' => TRUE
 		),
-		'om flowsheet download abstract' => array(
+		'om flowsheet download code' => array(
 			'title' => t('om flowsheet download code'),
 			'restrict access' => TRUE
 		),
