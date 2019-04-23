@@ -31,21 +31,29 @@ function om_flowsheet_abstract_bulk_approval_form($form, &$form_state)
 			)
 		)
 	);
-	$form['message'] = array(
+	$form['disapprove_message'] = array(
 		'#type' => 'textarea',
-		'#title' => t('If Dis-Approved please specify reason for Dis-Approval'),
+		'#title' => t('Enter the reason for disapproving the proposal<span style="color: red;">*</span>'),
+		'#prefix' => '<div id= "message_submit">',
+		'#states' => array(
+			'visible' => array(
+				array(
+					':input[name="flowsheet_actions"]' => array(
+						'value' => 2
+					)
+				)
+			)
+		)
+	);
+	$form['deletion_message'] = array(
+		'#type' => 'textarea',
+		'#title' => t('Enter the reason for deleting the proposal'),
 		'#prefix' => '<div id= "message_submit">',
 		'#states' => array(
 			'visible' => array(
 				array(
 					':input[name="flowsheet_actions"]' => array(
 						'value' => 3
-					)
-				),
-				'or',
-				array(
-					':input[name="flowsheet_actions"]' => array(
-						'value' => 2
 					)
 				)
 			)
@@ -87,6 +95,7 @@ function ajax_bulk_flowsheet_abstract_details_callback($form, $form_state)
 		'#commands' => $commands
 	);
 }
+
 /************************************************************/
 function om_flowsheet_abstract_bulk_approval_form_submit($form, &$form_state)
 {
@@ -126,30 +135,29 @@ function om_flowsheet_abstract_bulk_approval_form_submit($form, &$form_state)
 					} //$abstract_data = $abstracts_q->fetchObject()
 					drupal_set_message(t('Approved Flowsheeting project.'), 'status');
 					// email 
-					$email_subject = t('[!site_name][Flowsheeting Project] Your uploaded flowsheeting project have been approved', array(
+					$email_subject = t('[!site_name][Flowsheeting Project] Your uploaded OpenModelica Flowsheeting Project has been approved', array(
 						'!site_name' => variable_get('site_name', '')
 					));
 					$email_body = array(
 						0 => t('
 
-Dear !user_name,
+Dear ' . $user_info->contributor_name . ',
 
 Congratulations!
-Your om flowsheet and abstract with the following details have been approved.
+Your OpenModelica flowsheet and abstract with the following details have been approved.
 
 Full Name: ' . $user_info->name_title . ' ' . $user_info->contributor_name . '
 Project Title: ' . $user_info->project_title . '
 Name of compound for which process development is carried out  : ' . $user_info->process_development_compound_name . '
 
-Kindly send us the internship forms as early as possible for processing your honorarium on time. In case you have already sent these forms, please share the the consignment number or tracking id with us.
+Kindly send us the internship forms available at https://om.fossee.in/flowsheeting-project/internship/forms as early as possible for processing your honorarium on time. In case you have already sent these forms, please share the the consignment number or tracking id with us.
 
-Note: It will take upto 30 days from the time we receive your forms, to process your honorarium.
-
+Note: It will take upto 45 days from the time we receive your forms, to process your honorarium.
 
 Best Wishes,
 
 !site_name Team,
-FOSSEE,IIT Bombay', array(
+FOSSEE, IIT Bombay', array(
 							'!site_name' => variable_get('site_name', ''),
 							'!user_name' => $user_data->name
 						))
@@ -178,6 +186,18 @@ FOSSEE,IIT Bombay', array(
 				elseif ($form_state['values']['flowsheet_actions'] == 2)
 				{
 					//pending review entire project 
+					if(strlen(trim($form_state['values']['disapprove_message'])) == 0)
+					{
+						form_set_error('disapprove_message', t(''));
+						$msg = drupal_set_message("Please mention the reason for disapproval.", 'error');
+						return $msg;
+					}
+					else if (strlen(trim($form_state['values']['disapprove_message'])) <= 30)
+					{
+						form_set_error('disapprove_message', t(''));
+						$msg = drupal_set_message("Please mention the reason for disapproval. Minimum 30 character required", 'error');
+						return $msg;
+					}
 					$query = db_select('om_flowsheet_submitted_abstracts');
 					$query->fields('om_flowsheet_submitted_abstracts');
 					$query->condition('proposal_id', $form_state['values']['flowsheet_project']);
@@ -194,24 +214,29 @@ FOSSEE,IIT Bombay', array(
 							':submitted_abstract_id' => $abstract_data->id
 						));
 					} //$abstract_data = $abstracts_q->fetchObject()
-					drupal_set_message(t('Resubmit the project files.'), 'status');
+					drupal_set_message(t('Disapproved the submission.'), 'status');
 					// email 
-					$email_subject = t('[!site_name][Flowsheeting Project] Your uploaded flowsheeting project have been marked as pending', array(
+					$email_subject = t('[!site_name][Flowsheeting Project] Your uploaded OpenModelica Flowsheeting Project has been marked as disapproved', array(
 						'!site_name' => variable_get('site_name', '')
 					));
 					$email_body = array(
 						0 => t('
 
-Dear !user_name,
+Dear ' . $user_info->contributor_name . ',
 
-Your all the uploaded flowsheeting project with Title : ' . $user_info->project_title . ' have been marked as pending to be reviewed.
+We regret to inform you that your OpenModelica flowsheet and abstract with the following details have been disapproved:
+
+Full Name: ' . $user_info->name_title . ' ' . $user_info->contributor_name . '
+Project Title: ' . $user_info->project_title . '
+Name of compound for which process development is carried out  : ' . $user_info->process_development_compound_name . '
+Reason for Disapproval / Feedback: ' . $form_state['values']['disapprove_message'] . ' 
  
-You will be able to see the flowsheeting project after approved by one of our reviewers.
+You are requested to visit the Abstract and Flowsheet submission page at https://om.fossee.in/flowsheeting-project/abstract-code and re-upload the flowsheet and abstract.
 
 Best Wishes,
 
 !site_name Team,
-FOSSEE,IIT Bombay', array(
+FOSSEE, IIT Bombay', array(
 							'!site_name' => variable_get('site_name', ''),
 							'!user_name' => $user_data->name
 						))
@@ -239,10 +264,16 @@ FOSSEE,IIT Bombay', array(
 				} //$form_state['values']['flowsheet_actions'] == 2
 				elseif ($form_state['values']['flowsheet_actions'] == 3) //disapprove and delete entire flowsheeting project
 				{
-					if (strlen(trim($form_state['values']['message'])) <= 30)
+					if(strlen(trim($form_state['values']['deletion_message'])) == 0)
+					{
+						form_set_error('deletion_message', t(''));
+						$msg = drupal_set_message("Please mention the reason for deletion.", 'error');
+						return $msg;
+					}
+					else if (strlen(trim($form_state['values']['deletion_message'])) <= 30)
 					{
 						form_set_error('message', t(''));
-						$msg = drupal_set_message("Please mention the reason for disapproval. Minimum 30 character required", 'error');
+						$msg = drupal_set_message("Please mention the reason for deletion. Minimum 30 character required", 'error');
 						return $msg;
 					} //strlen(trim($form_state['values']['message'])) <= 30
 					if (!user_access('om flowsheet bulk delete code'))
@@ -253,30 +284,32 @@ FOSSEE,IIT Bombay', array(
 					if (om_flowsheet_abstract_delete_project($form_state['values']['flowsheet_project'])) //////
 					{
 						drupal_set_message(t('Dis-Approved and Deleted Entire Flowsheeting project.'), 'status');
-						$email_subject = t('[!site_name][Flowsheeting Project] Your uploaded flowsheeting project have been marked as dis-approved', array(
+						$email_subject = t('[!site_name][Flowsheeting Project] Your uploaded OpenModelica Flowsheeting Project has been deleted with the proposal form', array(
 						'!site_name' => variable_get('site_name', '')
 						));
 						$email_body = array(
 						0 => t('
 
-Dear !user_name,
+Dear ' . $user_info->contributor_name . ',
 
-We regret to inform you that your om flowsheet and abstract with the following details have been disapproved:
+We regret to inform you that your OpenModelica flowsheet and abstract along with the proposal form with the following details have been deleted:
 
 Full Name: ' . $user_info->name_title . ' ' . $user_info->contributor_name . '
 Project Title: ' . $user_info->project_title . '
 Name of compound for which process development is carried out  : ' . $user_info->process_development_compound_name . '
-Reason for dis-approval: ' . $form_state['values']['message'] . '
+Reason for dis-approval: ' . $form_state['values']['deletion_message'] . '
+
+Now, you can propose a new flowsheet.
 
 Best Wishes,
 
 !site_name Team,
-FOSSEE,IIT Bombay', array(
+FOSSEE, IIT Bombay', array(
 					'!site_name' => variable_get('site_name', ''),
 					'!user_name' => $user_data->name
 					))
 						);
-						$email_to = $user_data->mail;
+					$email_to = $user_data->mail;
 					$from = variable_get('om_flowsheet_from_email', '');
 					$bcc = variable_get('om_flowsheet_emails', '');
 					$cc = variable_get('om_flowsheet_cc_emails', '');
@@ -329,9 +362,9 @@ function _bulk_list_flowsheet_actions()
 	$flowsheet_actions = array(
 		0 => 'Please select...'
 	);
-	$flowsheet_actions[1] = 'Approve Entire Flowsheeting Project';
-	$flowsheet_actions[2] = 'Pending Review Entire Flowsheeting Project';
-	$flowsheet_actions[3] = 'Dis-Approve Entire Flowsheeting Project (This will delete Flowsheeting Project)';
+	$flowsheet_actions[1] = 'Approve entire flowsheeting project(This action will approve the uploaded flowsheet and abstract)';
+	$flowsheet_actions[2] = 'Disapprove entire flowsheeting project(Enables the submission interface for the user(Files will not be deleted but replaced if user re-uploads)';
+	$flowsheet_actions[3] = 'Delete entire flowsheeting project including proposal(This action will delete the entire project files including the proposal.)';
 	//$flowsheet_actions[4] = 'Delete Entire Flowsheeting Project Including Proposal';
 	return $flowsheet_actions;
 }

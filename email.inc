@@ -36,16 +36,16 @@ function om_flowsheet_mail($key, &$message, $params)
 			}
 
 			$message['headers'] = $params['om_flowsheet_proposal_received']['headers'];
-			$message['subject'] = t('[!site_name][Flowsheeting Project] Your om Flowsheeting Project proposal has been received', array(
+			$message['subject'] = t('[!site_name][Flowsheeting Project] Your OpenModelica Flowsheeting Project proposal has been received', array(
 				'!site_name' => variable_get('site_name', '')
 			), array(
 				'language' => $language->language
 			));
 			$message['body'] = array(
 				'body' => t('
-Dear !user_name,
+Dear ' . $proposal_data->contributor_name .',
 
-Thank you for submitting proposal for the om Flowsheeting Project. The details of your proposal are as below.
+Thank you for submitting proposal for the OpenModelica Flowsheeting Project. The details of your proposal are as below.
 
 Full Name: ' . $proposal_data->name_title . ' ' . $proposal_data->contributor_name . '
 Email: ' . $user_data->mail . '
@@ -60,7 +60,7 @@ Your proposal is under review. You will be notified via email about the approval
 Best Wishes,
 
 !site_name Team,
-FOSSEE,IIT Bombay', array(
+FOSSEE, IIT Bombay', array(
 					'!site_name' => variable_get('site_name', ''),
 					'!user_name' => $user_data->name
 				), array(
@@ -94,16 +94,16 @@ FOSSEE,IIT Bombay', array(
 				$project_guide_email_id = $proposal_data->project_guide_email_id;
 			}
 			$message['headers'] = $params['om_flowsheet_proposal_disapproved']['headers'];
-			$message['subject'] = t('[!site_name][Flowsheeting Project] Your om Flowsheeting Project proposal has been disapproved', array(
+			$message['subject'] = t('[!site_name][Flowsheeting Project] Your OpenModelica Flowsheeting Project proposal has been disapproved', array(
 				'!site_name' => variable_get('site_name', '')
 			), array(
 				'language' => $language->language
 			));
 			$message['body'] = array(
 				'body' => t('
-Dear !user_name,
+Dear ' . $proposal_data->contributor_name . ',
 
-We regret to inform you that your om Flowsheeting Project proposal with following details have been disapproved.
+We regret to inform you that your OpenModelica Flowsheeting Project proposal with following details have been disapproved.
 
 Full Name: ' . $proposal_data->name_title . ' ' . $proposal_data->contributor_name . '
 Project Title: ' . $proposal_data->project_title . '
@@ -112,13 +112,12 @@ Reason(s) / Feedback: ' . $proposal_data->dissapproval_reason . '
 
 Please note that any files that were uploaded along with the proposal form will be deleted from all our database(s).
 
-Thank you for participating in the om Flowsheeting Project. You are welcome to submit a new proposal.
-
+Thank you for participating in the OpenModelica Flowsheeting Project. You are welcome to submit a new proposal.
 
 Best Wishes,
 
 !site_name Team,
-FOSSEE,IIT Bombay', array(
+FOSSEE, IIT Bombay', array(
 					'!site_name' => variable_get('site_name', ''),
 					'!user_name' => $user_data->name
 				), array(
@@ -134,7 +133,7 @@ FOSSEE,IIT Bombay', array(
 			$query->range(0, 1);
 			$proposal_data = $query->execute()->fetchObject();
 			$user_data = user_load($params['om_flowsheet_proposal_approved']['user_id']);
-			$url = 'https://om.fossee.in/flowsheeting-project/coding-guidelines-flowsheeting';
+			$url = 'https://om.fossee.in/flowsheeting-project/coding-guidelines';
 			if ($proposal_data->project_guide_name == "NULL" || $proposal_data->project_guide_name == "")
 			{
 				$project_guide_name = "Not Entered";
@@ -152,29 +151,29 @@ FOSSEE,IIT Bombay', array(
 				$project_guide_email_id = $proposal_data->project_guide_email_id;
 			}
 			$message['headers'] = $params['om_flowsheet_proposal_approved']['headers'];
-			$message['subject'] = t('[!site_name][Flowsheeting Project] Your om Flowsheeting Project proposal has been approved', array(
+			$message['subject'] = t('[!site_name][Flowsheeting Project] Your OpenModelica Flowsheeting Project proposal has been approved', array(
 				'!site_name' => variable_get('site_name', '')
 			), array(
 				'language' => $language->language
 			));
 			$message['body'] = array(
 				'body' => t('
-Dear !user_name,
+Dear ' . $proposal_data->contributor_name . ',
 
-Congratulations! Your proposal for om Flowsheeting Project with the following details is approved.
+Congratulations! Your proposal for OpenModelica Flowsheeting Project with the following details is approved.
 
 Full Name : ' . $proposal_data->name_title . ' ' . $proposal_data->contributor_name . '
 Project Title  : ' . $proposal_data->project_title . '
 Name of compound for which process development is carried out  : ' . $proposal_data->process_development_compound_name . '
 
-Please ensure that ALL the guidelines for coding at https://om.fossee.in/flowsheeting-project/coding-guidelines-flowsheeting are strictly followed. Refer https://om.fossee.in/flowsheeting-project/flowsheeting-internship for the further procedure for submission of the project. Kindly ensure that the flowsheet and abstract are submitted within 1 month.
+Please ensure that ALL the guidelines for coding at https://om.fossee.in/flowsheeting-project/coding-guidelines are strictly followed. Refer https://om.fossee.in/flowsheeting-project/internship for the further procedure for submission of the project. Kindly ensure that the flowsheet and abstract are submitted within 1 month.
 
-You can upload your abstract using abstract submission interface.
+You can upload your abstract using abstract and flowsheet submission interface' . l('here', 'https://om.fossee.in/flowsheeting-project/abstract-code') . '
 
 Best Wishes,
 
 !site_name Team,
-FOSSEE,IIT Bombay', array(
+FOSSEE, IIT Bombay', array(
 					'!site_name' => variable_get('site_name', ''),
 					'!user_name' => $user_data->name
 				), array(
@@ -207,16 +206,16 @@ FOSSEE,IIT Bombay', array(
 				$project_guide_email_id = $proposal_data->project_guide_email_id;
 			}
 			$message['headers'] = $params['om_flowsheet_proposal_completed']['headers'];
-			$message['subject'] = t('[!site_name][Flowsheeting Project] Your om Flowsheeting Project proposal has been completed', array(
+			$message['subject'] = t('[!site_name][Flowsheeting Project] Your OpenModelica Flowsheeting Project has been completed', array(
 				'!site_name' => variable_get('site_name', '')
 			), array(
 				'language' => $language->language
 			));
 			$message['body'] = array(
 				'body' => t('
-Dear !user_name,
+Dear ' . $proposal_data->contributor_name . ',
 
-Your om flowsheet and abstract on the following process have been published successfully.
+Your OpenModelica flowsheet and abstract on the following process have been published successfully.
 
 Full Name : ' . $proposal_data->name_title . ' ' . $proposal_data->contributor_name . '
 Project Title  : ' . $proposal_data->project_title . '
@@ -226,13 +225,12 @@ https://om.fossee.in/flowsheeting-project/completed-flowsheet
 
 You can now download your e-certificate after logging into the om website: om.fossee.in.  On the left-hand side panel, go to User Dashboard > Flowsheet Certificates > Download. In case of any difficulties, kindly let us know.
 
-Thank you for participating in the om Flowsheeting Project. You are welcome to propose a new flowsheet.
-
+Thank you for participating in the OpenModelica Flowsheeting Project. You are welcome to propose a new flowsheet.
 
 Best Wishes,
 
 !site_name Team,
-FOSSEE,IIT Bombay', array(
+FOSSEE, IIT Bombay', array(
 					'!site_name' => variable_get('site_name', ''),
 					'!user_name' => $user_data->name
 				), array(
@@ -266,35 +264,23 @@ FOSSEE,IIT Bombay', array(
 				$project_guide_email_id = $proposal_data->project_guide_email_id;
 			}
 			$message['headers'] = $params['om_flowsheet_proposal_deleted']['headers'];
-			$message['subject'] = t('[!site_name][Flowsheeting Project] Your om Flowsheeting Project proposal has been deleted', array(
+			$message['subject'] = t('[!site_name][Flowsheeting Project] Your OpenModelica Flowsheeting Project proposal has been deleted', array(
 				'!site_name' => variable_get('site_name', '')
 			), array(
 				'language' => $language->language
 			));
 			$message['body'] = array(
 				'body' => t('
-Dear !user_name,
+Dear ' . $proposal_data->contributor_name . ',
 
-Your om Flowsheeting Project proposal with the following details has been deleted :
+Your OpenModelica Flowsheeting Project proposal with the following details has been deleted :
 
 Full Name : ' . $proposal_data->name_title . ' ' . $proposal_data->contributor_name . '
 Email : ' . $user_data->mail . '
-Month and Year of Award of Degree : ' . $proposal_data->month_year_of_degree . '
 University/Institute : ' . $proposal_data->university . '
-City : ' . $proposal_data->city . '
-State : ' . $proposal_data->state . '
-Country : ' . $proposal_data->country . '
-
-Project Guide  : ' . $project_guide_name . '
-Project Guide Email : ' . $project_guide_email_id . '
-
-om Version : ' . $proposal_data->version . '
-
+OpenModelica Version : ' . $proposal_data->version . '
 Project Title  : ' . $proposal_data->project_title . '
-
 Name of compound for which process development is carried out  : ' . $proposal_data->process_development_compound_name . '
-
-
 
 You can propose a new flowsheet project.
 
@@ -319,7 +305,8 @@ FOSSEE,IIT Bombay', array(
 			$proposal_data = $query->execute()->fetchObject();
 			
 			$user_data = user_load($params['abstract_uploaded']['user_id']);
-			$message['subject'] = t('[!site_name][Flowsheeting Project] You have uploaded om flowsheet abstract', array(
+			$message['subject'] = t('[!site_name][Flowsheeting Project] You have uploaded OpenModelica flowsheet and abstract
+', array(
 				'!site_name' => variable_get('site_name', '')
 			), array(
 				'language' => $language->language
@@ -327,20 +314,20 @@ FOSSEE,IIT Bombay', array(
 			$message['headers'] = $params['abstract_uploaded']['headers'];
 			$message['body'] = array(
 				'body' => t('
-Dear !user_name,
+Dear ' . $proposal_data->contributor_name . ',
 
-You have successfully uploaded your om flowsheet and abstract with the following details.
+You have successfully uploaded your OpenModelica flowsheet and abstract with the following details.
 
 Full Name : ' . $proposal_data->name_title . ' ' . $proposal_data->contributor_name . '
 Project Title  : ' . $proposal_data->project_title . '
 Name of compound for which process development is carried out  : ' . $proposal_data->process_development_compound_name . '
 
-You shall be notified via email after the flowsheet and abstract are reviewed and approved / disapproved. This may take upto 30 working days.
+You shall be notified via email after the flowsheet and abstract are reviewed and approved / disapproved. This may take upto 45 working days.
 
 Best Wishes,
 
 !site_name Team,
-FOSSEE,IIT Bombay', array(
+FOSSEE, IIT Bombay', array(
 					'!site_name' => variable_get('site_name', ''),
 					'!user_name' => $user_data->name
 				), array(
