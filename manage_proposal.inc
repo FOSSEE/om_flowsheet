@@ -294,6 +294,11 @@ function om_flowsheet_proposal_approval_form($form, &$form_state)
 		'#title' => t('Name of compound for which process development is carried out'),
 		'#markup' => $prodata
 	);
+	$form['reference'] = array(
+		'#type' => 'item',
+		'#title' => t('Reference'),
+		'#markup' => $proposal_data->reference,
+	);
 	/*
 	$form['process_development_compound_cas_number'] = array(
 	'#type' => 'item',
@@ -302,7 +307,7 @@ function om_flowsheet_proposal_approval_form($form, &$form_state)
 	);*/
 	$form['approval'] = array(
 		'#type' => 'radios',
-		'#title' => t('om flowsheeting proposal'),
+		'#title' => t('Select to approve/disapprove the proposal'),
 		'#options' => array(
 			'1' => 'Approve',
 			'2' => 'Disapprove'
@@ -557,6 +562,11 @@ function om_flowsheet_proposal_status_form($form, &$form_state)
 		'#type' => 'item',
 		'#title' => t('CAS Number of compound for which process development is carried out'),
 		'#markup' => $proposal_data->process_development_compound_cas_number
+	);
+	$form['reference'] = array(
+		'#type' => 'item',
+		'#title' => t('Reference'),
+		'#markup' => $proposal_data->reference
 	);
 	$proposal_status = '';
 	switch ($proposal_data->approval_status)
@@ -912,8 +922,8 @@ else{
 	$form['reference'] = array(
 		'#type' => 'textarea',
 		'#title' => t('Reference of the Flowsheet Project'),
-		'#size' => 300,
-		'#maxlength' => 350,
+		'#size' => 250,
+		'#maxlength' => 250,
 		'#default_value' => $proposal_data->reference
 	);
 	$form['process_development_compound_name'] = array(
