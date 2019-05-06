@@ -26,8 +26,9 @@ WHERE dfsa.id = :abstract_id", array(
 	while ($abstract_f_data = $abstract_f_q->fetchObject())
 	{
 		unlink($root_path . $abstract_data->directory_name . '/' . $abstract_f_data->filepath);
-
+		db_delete('om_flowsheet_submitted_abstracts_file')->condition('id', $abstract_f_data->id)->execute();
 	} 
+	
 
 	return True;
 }
@@ -64,8 +65,8 @@ function om_flowsheet_abstract_delete_project($proposal_id)
 	{
 		$res_main = rmdir($dir_main_path);
 	} //is_dir($dir_main_path)
-	db_delete('om_flowsheet_proposal')->condition('id', $proposal_data->id)->execute();
+	
 	db_delete('om_flowsheet_submitted_abstracts')->condition('proposal_id', $proposal_data->id)->execute();
-	db_delete('om_flowsheet_submitted_abstracts_file')->condition('id', $abstract_f_data->id)->execute();
+	db_delete('om_flowsheet_proposal')->condition('id', $proposal_data->id)->execute();
 	return $status;
 }

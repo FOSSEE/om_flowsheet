@@ -9,7 +9,7 @@ function _list_flowsheet_certificates()
 	//var_dump($exist_id->id);die;
 	if ($exist_id){
 	if ($exist_id->id) {
-		if ($exist_id->id < 2) {
+		if ($exist_id->id < 1) {
 			drupal_set_message('<strong>You need to propose a <a href="https://om.fossee.in/flowsheeting-project/proposal">OpenModelica Flowsheeting Proposal</a></strong> or if you have already proposed then your Flowsheet is under reviewing process', 'status');
 			return '';
 		} //$exist_id->id < 3

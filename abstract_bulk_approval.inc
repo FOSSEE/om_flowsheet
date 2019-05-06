@@ -395,6 +395,26 @@ function _flowsheet_details($flowsheet_proposal_id)
 	{
 		$abstract_filename = "File not uploaded";
 	}
+	$query_sp = db_select('om_flowsheet_submitted_abstracts_file');
+	$query_sp->fields('om_flowsheet_submitted_abstracts_file');
+	$query_sp->condition('proposal_id', $flowsheet_proposal_id);
+	$query_sp->condition('filetype', 'P');
+	$abstracts_sp = $query_sp->execute()->fetchObject();
+	if ($abstracts_sp == TRUE)
+	{
+		if ($abstracts_sp->filename != "NULL" || $abstracts_sp->filename != "")
+		{
+			$sp_filename = $abstracts_sp->filename;
+		} //$abstracts_pdf->filename != "NULL" || $abstracts_pdf->filename != ""
+		else
+		{
+			$sp_filename = "File not uploaded";
+		}
+	} //$abstracts_pdf == TRUE
+	else
+	{
+		$sp_filename = "File not uploaded";
+	}
 	$query_process = db_select('om_flowsheet_submitted_abstracts_file');
 	$query_process->fields('om_flowsheet_submitted_abstracts_file');
 	$query_process->condition('proposal_id', $flowsheet_proposal_id);
@@ -446,7 +466,7 @@ function _flowsheet_details($flowsheet_proposal_id)
 		$url = l('Upload abstract', 'flowsheeting-project/abstract-code/upload');
 		$unit_operations_used_in_om = "Not entered";
 		$thermodynamic_packages_used = "Not entered";
-		
+		//$sp_filename = "File not uploaded";
 		$abstracts_query_process_filename = "File not uploaded";
 	}
 	$headers = array(
@@ -472,6 +492,7 @@ function _flowsheet_details($flowsheet_proposal_id)
 	$return_html .= '<strong>Name of compound for which process development is carried out:</strong><br />' . $prodata;
 	$return_html .= '<strong>Uploaded an abstract (brief outline) of the project:</strong><br />' . $abstract_filename . '<br /><br />';
 	$return_html .= '<strong>Upload the OpenModelica flowsheet for the developed process:</strong><br />' . $abstracts_query_process_filename . '<br /><br />';
+	$return_html .= '<strong>Upload the OpenModelica flowsheet for the simulator package:</strong><br />' . $sp_filename . '<br /><br />';
 	$return_html .= $download_flowsheet;
 	return $return_html;
 }
