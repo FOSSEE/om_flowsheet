@@ -16,7 +16,7 @@ function om_flowsheet_proposal_pending()
 			date('d-m-Y', $pending_data->creation_date),
 			l($pending_data->name_title . ' ' . $pending_data->contributor_name, 'user/' . $pending_data->uid),
 			$pending_data->project_title,
-			l('Approve', 'flowsheeting-project/manage-proposal/approve/' . $pending_data->id) . ' | ' . l('Edit', 'flowsheeting-project/manage-proposal/edit/' . $pending_data->id)
+			l('Approve', 'chemical/chemical/flowsheeting-project/manage-proposal/approve/' . $pending_data->id) . ' | ' . l('Edit', 'chemical/chemical/flowsheeting-project/manage-proposal/edit/' . $pending_data->id)
 		);
 	} //$pending_data = $pending_q->fetchObject()
 	/* check if there are any pending proposals */
@@ -56,7 +56,7 @@ function om_flowsheet_proposal_pending_solution()
 			l($pending_data->name, 'user/' . $pending_data->uid),
 			$pending_data->project_title,
 			$pending_data->department,
-			l('Status', 'flowsheeting-project/manage-proposal/status/' . $pending_data->id)
+			l('Status', 'chemical/chemical/flowsheeting-project/manage-proposal/status/' . $pending_data->id)
 		);
 	} //$pending_data = $pending_q->fetchObject()
 	/* check if there are any pending proposals */
@@ -123,7 +123,7 @@ function om_flowsheet_proposal_all()
 			$proposal_data->project_title,
 			$actual_completion_date,
 			$approval_status,
-			l('Status', 'flowsheeting-project/manage-proposal/status/' . $proposal_data->id) . ' | ' . l('Edit', 'flowsheeting-project/manage-proposal/edit/' . $proposal_data->id)
+			l('Status', 'chemical/chemical/flowsheeting-project/manage-proposal/status/' . $proposal_data->id) . ' | ' . l('Edit', 'chemical/chemical/flowsheeting-project/manage-proposal/edit/' . $proposal_data->id)
 		);
 	} //$proposal_data = $proposal_q->fetchObject()
 	/* check if there are any pending proposals */
@@ -168,14 +168,14 @@ function om_flowsheet_proposal_approval_form($form, &$form_state)
 		else
 		{
 			drupal_set_message(t('Invalid proposal selected. Please try again.'), 'error');
-			drupal_goto('flowsheeting-project/manage-proposal');
+			drupal_goto('chemical/chemical/flowsheeting-project/manage-proposal');
 			return;
 		}
 	} //$proposal_q
 	else
 	{
 		drupal_set_message(t('Invalid proposal selected. Please try again.'), 'error');
-		drupal_goto('flowsheeting-project/manage-proposal');
+		drupal_goto('chemical/chemical/flowsheeting-project/manage-proposal');
 		return;
 	}
 	if ($proposal_data->project_guide_name == "NULL" || $proposal_data->project_guide_name == "")
@@ -336,7 +336,7 @@ function om_flowsheet_proposal_approval_form($form, &$form_state)
 	);
 	$form['cancel'] = array(
 		'#type' => 'item',
-		'#markup' => l(t('Cancel'), 'flowsheeting-project/manage-proposal')
+		'#markup' => l(t('Cancel'), 'chemical/chemical/flowsheeting-project/manage-proposal')
 	);
 	return $form;
 }
@@ -369,14 +369,14 @@ function om_flowsheet_proposal_approval_form_submit($form, &$form_state)
 		else
 		{
 			drupal_set_message(t('Invalid proposal selected. Please try again.'), 'error');
-			drupal_goto('flowsheeting-project/manage-proposal');
+			drupal_goto('chemical/chemical/flowsheeting-project/manage-proposal');
 			return;
 		}
 	} //$proposal_q
 	else
 	{
 		drupal_set_message(t('Invalid proposal selected. Please try again.'), 'error');
-		drupal_goto('flowsheeting-project/manage-proposal');
+		drupal_goto('chemical/chemical/flowsheeting-project/manage-proposal');
 		return;
 	}
 	if ($form_state['values']['approval'] == 1)
@@ -408,7 +408,7 @@ function om_flowsheet_proposal_approval_form_submit($form, &$form_state)
 		if (!drupal_mail('om_flowsheet', 'om_flowsheet_proposal_approved', $email_to, language_default(), $params, $from, TRUE))
 			drupal_set_message('Error sending email message.', 'error');
 		drupal_set_message('om flowsheeting proposal No. ' . $proposal_id . ' approved. User has been notified of the approval.', 'status');
-		drupal_goto('flowsheeting-project/manage-proposal');
+		drupal_goto('chemical/chemical/flowsheeting-project/manage-proposal');
 		return;
 	} //$form_state['values']['approval'] == 1
 	else if ($form_state['values']['approval'] == 2)
@@ -441,7 +441,7 @@ function om_flowsheet_proposal_approval_form_submit($form, &$form_state)
 		if (!drupal_mail('om_flowsheet', 'om_flowsheet_proposal_disapproved', $email_to, language_default(), $params, $from, TRUE))
 			drupal_set_message('Error sending email message.', 'error');
 		drupal_set_message('om flowsheeting proposal No. ' . $proposal_id . ' dis-approved. User has been notified of the dis-approval.', 'error');
-		drupal_goto('flowsheeting-project/manage-proposal');
+		drupal_goto('chemical/chemical/flowsheeting-project/manage-proposal');
 		return;
 	} //$form_state['values']['approval'] == 2
 }
@@ -467,14 +467,14 @@ function om_flowsheet_proposal_status_form($form, &$form_state)
 		else
 		{
 			drupal_set_message(t('Invalid proposal selected. Please try again.'), 'error');
-			drupal_goto('flowsheeting-project/manage-proposal');
+			drupal_goto('chemical/chemical/flowsheeting-project/manage-proposal');
 			return;
 		}
 	} //$proposal_q
 	else
 	{
 		drupal_set_message(t('Invalid proposal selected. Please try again.'), 'error');
-		drupal_goto('flowsheeting-project/manage-proposal');
+		drupal_goto('chemical/chemical/flowsheeting-project/manage-proposal');
 		return;
 	}
 	$form['contributor_name'] = array(
@@ -597,7 +597,7 @@ function om_flowsheet_proposal_status_form($form, &$form_state)
 	{
 		$form['approve'] = array(
 			'#type' => 'item',
-			'#markup' => l('Click here', 'flowsheeting-project/manage-proposal/approve/' . $proposal_id),
+			'#markup' => l('Click here', 'chemical/chemical/flowsheeting-project/manage-proposal/approve/' . $proposal_id),
 			'#title' => t('Approve')
 		);
 	} //$proposal_data->approval_status == 0
@@ -623,7 +623,7 @@ function om_flowsheet_proposal_status_form($form, &$form_state)
 	);
 	$form['cancel'] = array(
 		'#type' => 'markup',
-		'#markup' => l(t('Cancel'), 'flowsheeting-project/manage-proposal/all')
+		'#markup' => l(t('Cancel'), 'chemical/chemical/flowsheeting-project/manage-proposal/all')
 	);
 	return $form;
 }
@@ -646,14 +646,14 @@ function om_flowsheet_proposal_status_form_submit($form, &$form_state)
 		else
 		{
 			drupal_set_message(t('Invalid proposal selected. Please try again.'), 'error');
-			drupal_goto('flowsheeting-project/manage-proposal');
+			drupal_goto('chemical/chemical/flowsheeting-project/manage-proposal');
 			return;
 		}
 	} //$proposal_q
 	else
 	{
 		drupal_set_message(t('Invalid proposal selected. Please try again.'), 'error');
-		drupal_goto('flowsheeting-project/manage-proposal');
+		drupal_goto('chemical/chemical/flowsheeting-project/manage-proposal');
 		return;
 	}
 	/* set the book status to completed */
@@ -693,7 +693,7 @@ function om_flowsheet_proposal_status_form_submit($form, &$form_state)
 			drupal_set_message('Error sending email message.', 'error');
 		drupal_set_message('Congratulations! om flowsheeting proposal has been marked as completed. User has been notified of the completion.', 'status');
 	} //$form_state['values']['completed'] == 1
-	drupal_goto('flowsheeting-project/manage-proposal');
+	drupal_goto('chemical/chemical/flowsheeting-project/manage-proposal');
 	return;
 }
 /******************************************************************************/
@@ -718,14 +718,14 @@ function om_flowsheet_proposal_edit_form($form, &$form_state)
 		else
 		{
 			drupal_set_message(t('Invalid proposal selected. Please try again.'), 'error');
-			drupal_goto('flowsheeting-project/manage-proposal');
+			drupal_goto('chemical/chemical/flowsheeting-project/manage-proposal');
 			return;
 		}
 	} //$proposal_q
 	else
 	{
 		drupal_set_message(t('Invalid proposal selected. Please try again.'), 'error');
-		drupal_goto('flowsheeting-project/manage-proposal');
+		drupal_goto('chemical/chemical/flowsheeting-project/manage-proposal');
 		return;
 	}
 	$user_data = user_load($proposal_data->uid);
@@ -949,7 +949,7 @@ else{
 	);
 	$form['cancel'] = array(
 		'#type' => 'item',
-		'#markup' => l(t('Cancel'), 'flowsheeting-project/manage-proposal')
+		'#markup' => l(t('Cancel'), 'chemical/chemical/flowsheeting-project/manage-proposal')
 	);
 	return $form;
 }
@@ -999,14 +999,14 @@ function om_flowsheet_proposal_edit_form_submit($form, &$form_state)
 		else
 		{
 			drupal_set_message(t('Invalid proposal selected. Please try again.'), 'error');
-			drupal_goto('flowsheeting-project/manage-proposal');
+			drupal_goto('chemical/chemical/flowsheeting-project/manage-proposal');
 			return;
 		}
 	} //$proposal_q
 	else
 	{
 		drupal_set_message(t('Invalid proposal selected. Please try again.'), 'error');
-		drupal_goto('flowsheeting-project/manage-proposal');
+		drupal_goto('chemical/chemical/flowsheeting-project/manage-proposal');
 		return;
 	}
 	/* delete proposal */
@@ -1040,7 +1040,7 @@ function om_flowsheet_proposal_edit_form_submit($form, &$form_state)
 			$query->condition('id', $proposal_id);
 			$num_deleted = $query->execute();
 			drupal_set_message(t('Proposal Deleted'), 'status');
-			drupal_goto('flowsheeting-project/manage-proposal');
+			drupal_goto('chemical/chemical/chemical/chemical/chemical/chemical/flowsheeting-project/manage-proposal');
 			return;
 		} //om_rrmdir_project($proposal_id) == TRUE
 	} //$form_state['values']['delete_proposal'] == 1
