@@ -11,12 +11,12 @@ function om_flowsheet_completed_proposals_all()
 	$result = $query->execute();
 	if ($result->rowCount() == 0)
 	{
-		$output .= "Work has been completed for the following flow sheets. We welcome your contributions. For more details, please visit ".l("https://om.fossee.in/flowsheeting-project","https://om.fossee.in/flowsheeting-project", array('attributes' => array('target' => '_blank')))."<br>"."<h4>"."If you are looking for flowsheeting project ideas, ".l("click here","https://om.fossee.in/flowsheeting-ideas",array('attributes' => array('class' => array('flash_content'), 'target' => '_blank')))."</h4>"."<hr>";
+		$output .= "Work has been completed for the following flow sheets. We welcome your contributions. For more details, please visit ".l("https://om.fossee.in/flowsheeting-project","https://om.fossee.in/chemical/flowsheeting-project", array('attributes' => array('target' => '_blank')))."<hr>";
 
 	} //$result->rowCount() == 0
 	else
 	{
-		$output .= "Work has been completed for the following flow sheets. We welcome your contributions. For more details, please visit ".l("https://om.fossee.in/flowsheeting-project","https://om.fossee.in/flowsheeting-project", array('attributes' => array('target' => '_blank')))."<br>"."<h4>"."If you are looking for flowsheeting project ideas, ".l("click here","https://om.fossee.in/flowsheeting-ideas",array('attributes' => array('class' => array('flash_content'), 'target' => '_blank')))."</h4>"."<hr>";
+		$output .= "Work has been completed for the following flow sheets. We welcome your contributions. For more details, please visit ".l("https://om.fossee.in/flowsheeting-project","https://om.fossee.in/flowsheeting-project", array('attributes' => array('target' => '_blank')))."<hr>";
 		$preference_rows = array();
 		$i = 1;
 		while ($row = $result->fetchObject())

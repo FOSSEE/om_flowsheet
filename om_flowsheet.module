@@ -10,7 +10,7 @@ function om_flowsheet_menu()
 {
 	$items = array();
 	/* PROPOSAL */
-	$items['flowsheeting-project/proposal'] = array(
+	$items['chemical/flowsheeting-project/proposal'] = array(
 		'title' => 'Flowsheet Proposal Form',
 		'description' => 'Flowsheet Proposal Form Proposal Form',
 		'page callback' => 'drupal_get_form',
@@ -23,7 +23,7 @@ function om_flowsheet_menu()
 		'type' => MENU_NORMAL_ITEM,
 		'file' => 'proposal.inc'
 	);
-	$items['flowsheeting-project/manage-proposal'] = array(
+	$items['chemical/flowsheeting-project/manage-proposal'] = array(
 		'title' => 'Manage Flowsheet Proposals',
 		'description' => 'Manage Flowsheet Proposals',
 		'page callback' => 'om_flowsheet_proposal_pending',
@@ -33,7 +33,7 @@ function om_flowsheet_menu()
 		),
 		'file' => 'manage_proposal.inc'
 	);
-	$items['flowsheeting-project/manage-proposal/pending'] = array(
+	$items['chemical/flowsheeting-project/manage-proposal/pending'] = array(
 		'title' => 'Pending Proposals',
 		'description' => 'Pending om flowsheet Proposals Queue',
 		'page callback' => 'om_flowsheet_proposal_pending',
@@ -45,7 +45,7 @@ function om_flowsheet_menu()
 		'weight' => 1,
 		'file' => 'manage_proposal.inc'
 	);
-	$items['flowsheeting-project/manage-proposal/all'] = array(
+	$items['chemical/flowsheeting-project/manage-proposal/all'] = array(
 		'title' => 'All Proposals',
 		'description' => 'All Proposals',
 		'page callback' => 'om_flowsheet_proposal_all',
@@ -57,7 +57,7 @@ function om_flowsheet_menu()
 		'weight' => 4,
 		'file' => 'manage_proposal.inc'
 	);
-	$items['flowsheeting-project/manage-proposal/approve'] = array(
+	$items['chemical/flowsheeting-project/manage-proposal/approve'] = array(
 		'title' => 'Approve Proposal',
 		'description' => 'Approve Proposal',
 		'page callback' => 'drupal_get_form',
@@ -70,7 +70,7 @@ function om_flowsheet_menu()
 		'type' => MENU_CALLBACK,
 		'file' => 'manage_proposal.inc'
 	);
-	$items['flowsheeting-project/manage-proposal/solution-proposal-approve'] = array(
+	$items['chemical/flowsheeting-project/manage-proposal/solution-proposal-approve'] = array(
 		'title' => 'Approve Solution Proposal',
 		'description' => 'Approve Solution Proposal',
 		'page callback' => 'drupal_get_form',
@@ -83,7 +83,7 @@ function om_flowsheet_menu()
 		'type' => MENU_CALLBACK,
 		'file' => 'manage_solution_proposal.inc'
 	);
-	$items['flowsheeting-project/manage-proposal/edit'] = array(
+	$items['chemical/flowsheeting-project/manage-proposal/edit'] = array(
 		'title' => 'Edit Proposal',
 		'description' => 'Edit Proposal',
 		'page callback' => 'drupal_get_form',
@@ -96,7 +96,7 @@ function om_flowsheet_menu()
 		'type' => MENU_CALLBACK,
 		'file' => 'manage_proposal.inc'
 	);
-	$items['flowsheeting-project/manage-proposal/status'] = array(
+	$items['chemical/flowsheeting-project/manage-proposal/status'] = array(
 		'title' => 'Proposal Status',
 		'description' => 'Proposal Status',
 		'page callback' => 'drupal_get_form',
@@ -109,7 +109,7 @@ function om_flowsheet_menu()
 		'type' => MENU_CALLBACK,
 		'file' => 'manage_proposal.inc'
 	);
-	$items['flowsheeting-project/show-proposal'] = array(
+	$items['chemical/flowsheeting-project/show-proposal'] = array(
 		'title' => 'om flowsheet Solution Proposal',
 		'page callback' => 'drupal_get_form',
 		'page arguments' => array(
@@ -122,7 +122,7 @@ function om_flowsheet_menu()
 		'file' => 'solution_proposal.inc'
 	);
 	/* CODE REVIEW */
-	$items['flowsheeting-project/code-approval'] = array(
+	$items['chemical/flowsheeting-project/code-approval'] = array(
 		'title' => 'LM Manage Code Approval',
 		'description' => 'Manage Code Approval',
 		'page callback' => 'om_flowsheet_code_approval',
@@ -132,7 +132,7 @@ function om_flowsheet_menu()
 		'type' => MENU_NORMAL_ITEM,
 		'file' => 'code_approval.inc'
 	);
-	$items['flowsheeting-project/abstract-approval/approve'] = array(
+	$items['chemical/flowsheeting-project/abstract-approval/approve'] = array(
 		'title' => 'Code Approval',
 		'description' => 'Code Approval',
 		'page callback' => 'drupal_get_form',
@@ -146,7 +146,7 @@ function om_flowsheet_menu()
 		'weight' => 1,
 		'file' => 'code_approval.inc'
 	);
-	$items['flowsheeting-project/abstract-approval/bulk'] = array(
+	$items['chemical/flowsheeting-project/abstract-approval/bulk'] = array(
 		'title' => 'Bulk Manage',
 		'description' => 'Bulk Mangage',
 		'page callback' => 'drupal_get_form',
@@ -160,7 +160,7 @@ function om_flowsheet_menu()
 		'weight' => 2,
 		'file' => 'abstract_bulk_approval.inc'
 	);
-	$items['flowsheeting-project/code-approval/bulk'] = array(
+	$items['chemical/flowsheeting-project/code-approval/bulk'] = array(
 		'title' => 'Bulk Manage',
 		'description' => 'Bulk Mangage',
 		'page callback' => 'drupal_get_form',
@@ -174,7 +174,7 @@ function om_flowsheet_menu()
 		'weight' => 2,
 		'file' => 'bulk_approval.inc'
 	);
-	$items['flowsheeting-project/code-approval/upload'] = array(
+	$items['chemical/flowsheeting-project/code-approval/upload'] = array(
 		'title' => 'Upload Code',
 		'description' => 'Admin Upload',
 		'page callback' => 'drupal_get_form',
@@ -188,7 +188,7 @@ function om_flowsheet_menu()
 		'weight' => 4,
 		'file' => 'bulk_upload_code.inc'
 	);
-	$items['flowsheeting-project/code-approval/notes'] = array(
+	$items['chemical/flowsheeting-project/code-approval/notes'] = array(
 		'title' => 'Notes for Reviewers',
 		'description' => 'Notes for Reviewers',
 		'page callback' => 'drupal_get_form',
@@ -203,7 +203,7 @@ function om_flowsheet_menu()
 		'file' => 'notes.inc'
 	);
 	/* CODE UPLOAD */
-	$items['flowsheeting-project/abstract-code'] = array(
+	$items['chemical/flowsheeting-project/abstract-code'] = array(
 		'title' => 'Abstract and Flowsheet Submission',
 		'description' => 'Abstract Submission',
 		'page callback' => 'om_flowsheet_abstract',
@@ -213,7 +213,7 @@ function om_flowsheet_menu()
 		),
 		'file' => 'upload_code.inc'
 	);
-	$items['flowsheeting-project/abstract-code/flowsheet-project-list'] = array(
+	$items['chemical/flowsheeting-project/abstract-code/flowsheet-project-list'] = array(
 		'title' => 'Flowsheet project',
 		'description' => 'List Experiments',
 		'page callback' => 'om_flowsheet_abstract',
@@ -224,7 +224,7 @@ function om_flowsheet_menu()
 		'file' => 'upload_code.inc',
 		'weight' => 1
 	);
-	$items['flowsheeting-project/abstract-code/upload'] = array(
+	$items['chemical/flowsheeting-project/abstract-code/upload'] = array(
 		'title' => 'Abstract and Flowsheet Submission',
 		'description' => 'Abstract Submission',
 		'page callback' => 'drupal_get_form',
@@ -238,7 +238,7 @@ function om_flowsheet_menu()
 		'file' => 'upload_code.inc',
 		'weight' => 2
 	);
-	$items['flowsheeting-project/abstract-code/delete'] = array(
+	$items['chemical/flowsheeting-project/abstract-code/delete'] = array(
 		'title' => 'Delete Solution',
 		'description' => 'Delete Solution',
 		'page callback' => 'om_flowsheet_upload_code_delete',
@@ -249,7 +249,7 @@ function om_flowsheet_menu()
 		'file' => 'upload_code_delete.inc'
 	);
 	/* CODE DOWNLOADS */
-	$items['flowsheeting-project/download/file'] = array(
+	$items['chemical/flowsheeting-project/download/file'] = array(
 		'title' => 'Code Download',
 		'description' => 'Code Download',
 		'page callback' => 'om_flowsheet_download_solution_file',
@@ -259,7 +259,7 @@ function om_flowsheet_menu()
 		'type' => MENU_CALLBACK,
 		'file' => 'download.inc'
 	);
-	$items['flowsheeting-project/download/solution'] = array(
+	$items['chemical/flowsheeting-project/download/solution'] = array(
 		'title' => 'Code Download',
 		'description' => 'Code Download',
 		'page callback' => 'om_flowsheet_download_solution',
@@ -269,7 +269,7 @@ function om_flowsheet_menu()
 		'type' => MENU_CALLBACK,
 		'file' => 'download.inc'
 	);
-	$items['flowsheeting-project/download/experiment'] = array(
+	$items['chemical/flowsheeting-project/download/experiment'] = array(
 		'title' => 'Code Download',
 		'description' => 'Code Download',
 		'page callback' => 'om_flowsheet_download_experiment',
@@ -279,7 +279,7 @@ function om_flowsheet_menu()
 		'type' => MENU_CALLBACK,
 		'file' => 'download.inc'
 	);
-	$items['flowsheeting-project/download/lab'] = array(
+	$items['chemical/flowsheeting-project/download/lab'] = array(
 		'title' => 'Code Download',
 		'description' => 'Code Download',
 		'page callback' => 'om_flowsheet_download_lab',
@@ -289,7 +289,7 @@ function om_flowsheet_menu()
 		'type' => MENU_CALLBACK,
 		'file' => 'download.inc'
 	);
-	$items['flowsheeting-project/full-download/experiment'] = array(
+	$items['chemical/flowsheeting-project/full-download/experiment'] = array(
 		'title' => 'Code Download',
 		'description' => 'Code Download',
 		'page callback' => 'om_flowsheet_download_full_experiment',
@@ -299,7 +299,7 @@ function om_flowsheet_menu()
 		'type' => MENU_CALLBACK,
 		'file' => 'full_download.inc'
 	);
-	$items['flowsheeting-project/full-download/project'] = array(
+	$items['chemical/flowsheeting-project/full-download/project'] = array(
 		'title' => 'Code Download',
 		'description' => 'Code Download',
 		'page callback' => 'om_flowsheet_download_full_project',
@@ -310,7 +310,7 @@ function om_flowsheet_menu()
 		'file' => 'full_download.inc'
 	);
 	/* COMPLETED om flowsheetS */
-	$items['flowsheeting-project/completed-flowsheet'] = array(
+	$items['chemical/flowsheeting-project/completed-flowsheet'] = array(
 		'title' => 'Completed Flowsheets',
 		'page callback' => 'om_flowsheet_completed_proposals_all',
 		'access arguments' => array(
@@ -319,7 +319,7 @@ function om_flowsheet_menu()
 		'file' => 'flowsheet_details.inc'
 	);
 	/* LABS IN PROGRESS */
-	$items['flowsheeting-project/flowsheet-progress'] = array(
+	$items['chemical/flowsheeting-project/flowsheet-progress'] = array(
 		'title' => 'Flowsheets in Progress',
 		'page callback' => 'om_flowsheet_progress_all',
 		'access arguments' => array(
@@ -328,7 +328,7 @@ function om_flowsheet_menu()
 		'file' => 'flowsheet_details.inc'
 	);
 	/* DOWNLOAD FOR EVERYONE */
-	$items['flowsheeting-project/om-flowsheet-run'] = array(
+	$items['chemical/flowsheeting-project/om-flowsheet-run'] = array(
 		'title' => 'Download Codes',
 		'page callback' => 'drupal_get_form',
 		'page arguments' => array(
@@ -340,7 +340,7 @@ function om_flowsheet_menu()
 		'type' => MENU_NORMAL_ITEM,
 		'file' => 'run.inc'
 	);
-	$items['flowsheeting-project/download/user-defined-compound-file'] = array(
+	$items['chemical/flowsheeting-project/download/user-defined-compound-file'] = array(
 		'title' => 'Download user defined compound file',
 		'description' => 'Download user defined compound',
 		'page callback' => 'om_flowsheet_download_user_defined_compound',
@@ -351,7 +351,7 @@ function om_flowsheet_menu()
 		'file' => 'download.inc'
 	);
 	/* LATEX SCRIPT */
-	$items['flowsheeting-project/generate-lab'] = array(
+	$items['chemical/flowsheeting-project/generate-lab'] = array(
 		'title' => 'Generate Lab',
 		'description' => 'Generate Lab From Latex Script',
 		'page callback' => 'om_flowsheet_download_lab_pdf',
@@ -361,7 +361,7 @@ function om_flowsheet_menu()
 		'type' => MENU_CALLBACK,
 		'file' => 'latex.inc'
 	);
-	$items['flowsheeting-project/delete-lab'] = array(
+	$items['chemical/flowsheeting-project/delete-lab'] = array(
 		'title' => 'Delete Lab PDF',
 		'description' => 'Delete Lab PDF',
 		'page callback' => 'om_flowsheet_delete_lab_pdf',
@@ -395,7 +395,7 @@ function om_flowsheet_menu()
 		"type" => MENU_CALLBACK,
 		'file' => 'bulk_approval.inc'
 	);
-	$items['flowsheeting-project/certificates'] = array(
+	$items['chemical/flowsheeting-project/certificates'] = array(
 		'title' => 'List of Flowsheet Certificates',
 		'description' => 'List of flowsheet Certificates',
 		'page callback' => '_list_flowsheet_certificates',
@@ -404,7 +404,7 @@ function om_flowsheet_menu()
 		),
 		'file' => 'pdf/list_flowsheet_certificate.inc'
 	);
-	$items['flowsheeting-project/certificates/generate-pdf'] = array(
+	$items['chemical/flowsheeting-project/certificates/generate-pdf'] = array(
 		'title' => 'Download Certificate',
 		'description' => 'Download Certificate',
 		'page callback' => 'drupal_get_form',
@@ -417,7 +417,7 @@ function om_flowsheet_menu()
 		),
 		'file' => 'pdf/cert_new.inc'
 	);
-	$items['flowsheeting-project/certificates-custom'] = array(
+	$items['chemical/flowsheeting-project/certificates-custom'] = array(
 		'title' => 'List of Flowsheet Custom Certificates',
 		'description' => 'List of flowsheet Custom Certificates',
 		'page callback' => '_list_flowsheet_custom_certificates',
@@ -426,7 +426,7 @@ function om_flowsheet_menu()
 		),
 		'file' => 'pdf/list_mentor_certificates.inc'
 	);
-	$items['flowsheeting-project/certificates-custom/pdf'] = array(
+	$items['chemical/flowsheeting-project/certificates-custom/pdf'] = array(
 		'title' => 'Download Certificate',
 		'description' => 'Download Certificate',
 		'page callback' => 'drupal_get_form',
@@ -439,7 +439,7 @@ function om_flowsheet_menu()
 		),
 		'file' => 'pdf/mentor_cert_pdf.inc'
 	);
-	$items["flowsheeting-project/certificates/verify"] = array(
+	$items["chemical/flowsheeting-project/certificates/verify"] = array(
 		"title" => "Certificate Verification",
 		"page callback" => "verify_certificates",
 		"access arguments" => array(
@@ -519,10 +519,10 @@ function om_flowsheet_permission()
 	);
 	// return array('om flowsheet create proposal', 'om flowsheet manage proposal', 'om flowsheet edit proposal', 'om flowsheet approve proposal', 'om flowsheet propose solution', 'om flowsheet approve code', 'om flowsheet bulk manage abstract', 'om flowsheet bulk delete code', 'om flowsheet upload code', 'om flowsheet download code', 'administer om flowsheet', 'om flowsheet generate lab');
 }
-/* AJAX CALLS */
+/* AJAX CALLS 
 function om_flowsheet_ajax()
 {
-	$query_type = arg(2);
+	$query_type = arg(3);
 	if ($query_type == 'chapter_title')
 	{
 		$chapter_number = arg(3);

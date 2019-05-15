@@ -2,7 +2,7 @@
 function om_flowsheet_run_form($form, &$form_state)
 {
 	$options_first = _list_of_flowsheet();
-	$url_flowsheet_id = (int) arg(2);
+	$url_flowsheet_id = (int) arg(3);
 	$flowsheet_data = _flowsheet_information($url_flowsheet_id);
 	if ($flowsheet_data == 'Not found') {
 		$url_flowsheet_id = '';

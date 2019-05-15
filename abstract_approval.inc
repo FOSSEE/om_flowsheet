@@ -72,7 +72,7 @@ function om_flowsheet_abstract_approval()
   }
 function om_flowsheet_abstract_approval_form($form, &$form_state)
   {
-    $solution_id = (int) arg(3);
+    $solution_id = (int) arg(4);
     /* get solution details */
     //$solution_q = db_query("SELECT * FROM {lab_migration_solution} WHERE id = %d", $solution_id);
     $query = db_select('lab_migration_solution');
@@ -264,7 +264,7 @@ function om_flowsheet_abstract_approval_form_validate($form, &$form_state)
 function om_flowsheet_abstract_approval_form_submit($form, &$form_state)
   {
     global $user;
-    $solution_id = (int) arg(3);
+    $solution_id = (int) arg(4);
     /* get solution details */
     //$solution_q = db_query("SELECT * FROM {lab_migration_solution} WHERE id = %d", $solution_id);
     $query = db_select('lab_migration_solution');

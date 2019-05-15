@@ -3,7 +3,7 @@
 function om_flowsheet_download_full_project()
 {
 	global $user;
-	$flowsheet_id = arg(3);
+	$flowsheet_id = arg(4);
 	$root_path = om_flowsheet_path();
 	$query = db_select('om_flowsheet_proposal');
 	$query->fields('om_flowsheet_proposal');
@@ -63,7 +63,7 @@ function om_flowsheet_download_full_project()
 function om_flowsheet_download_completed_project()
 {
 	global $user;
-	$flowsheet_id = arg(3);
+	$flowsheet_id = arg(4);
 	$root_path = om_flowsheet_path();
 	$query = db_select('om_flowsheet_proposal');
 	$query->fields('om_flowsheet_proposal');

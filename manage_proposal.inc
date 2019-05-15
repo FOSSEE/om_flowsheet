@@ -153,7 +153,7 @@ function om_flowsheet_proposal_approval_form($form, &$form_state)
 {
 	global $user;
 	/* get current proposal */
-	$proposal_id = (int) arg(3);
+	$proposal_id = (int) arg(4);
 	//$proposal_q = db_query("SELECT * FROM {om_flowsheet_proposal} WHERE id = %d", $proposal_id);
 	$query = db_select('om_flowsheet_proposal');
 	$query->fields('om_flowsheet_proposal');
@@ -354,7 +354,7 @@ function om_flowsheet_proposal_approval_form_submit($form, &$form_state)
 {
 	global $user;
 	/* get current proposal */
-	$proposal_id = (int) arg(3);
+	$proposal_id = (int) arg(4);
 	// $proposal_q = db_query("SELECT * FROM {om_flowsheet_proposal} WHERE id = %d", $proposal_id);
 	$query = db_select('om_flowsheet_proposal');
 	$query->fields('om_flowsheet_proposal');
@@ -452,7 +452,7 @@ function om_flowsheet_proposal_status_form($form, &$form_state)
 {
 	global $user;
 	/* get current proposal */
-	$proposal_id = (int) arg(3);
+	$proposal_id = (int) arg(4);
 	//$proposal_q = db_query("SELECT * FROM {om_flowsheet_proposal} WHERE id = %d", $proposal_id);
 	$query = db_select('om_flowsheet_proposal');
 	$query->fields('om_flowsheet_proposal');
@@ -631,7 +631,7 @@ function om_flowsheet_proposal_status_form_submit($form, &$form_state)
 {
 	global $user;
 	/* get current proposal */
-	$proposal_id = (int) arg(3);
+	$proposal_id = (int) arg(4);
 	//$proposal_q = db_query("SELECT * FROM {om_flowsheet_proposal} WHERE id = %d", $proposal_id);
 	$query = db_select('om_flowsheet_proposal');
 	$query->fields('om_flowsheet_proposal');
@@ -703,7 +703,7 @@ function om_flowsheet_proposal_edit_form($form, &$form_state)
 {
 	global $user;
 	/* get current proposal */
-	$proposal_id = (int) arg(3);
+	$proposal_id = (int) arg(4);
 	//$proposal_q = db_query("SELECT * FROM {om_flowsheet_proposal} WHERE id = %d", $proposal_id);
 	$query = db_select('om_flowsheet_proposal');
 	$query->fields('om_flowsheet_proposal');
@@ -984,7 +984,7 @@ function om_flowsheet_proposal_edit_form_submit($form, &$form_state)
 {
 	global $user;
 	/* get current proposal */
-	$proposal_id = (int) arg(3);
+	$proposal_id = (int) arg(4);
 	// $proposal_q = db_query("SELECT * FROM {om_flowsheet_proposal} WHERE id = %d", $proposal_id);
 	$query = db_select('om_flowsheet_proposal');
 	$query->fields('om_flowsheet_proposal');

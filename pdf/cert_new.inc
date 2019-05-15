@@ -6,7 +6,7 @@ function generate_pdf()
 	require($mpath.'/pdf/phpqrcode/qrlib.php');
 	global $user;
 	$x                 = $user->uid;
-	$proposal_id       = arg(3);
+	$proposal_id       = arg(4);
 	$query3 = db_query("SELECT * FROM om_flowsheet_proposal WHERE approval_status=3 AND uid= :uid AND id=:proposal_id", array(
 		':uid' => $user->uid,
 		':proposal_id'=>$proposal_id
@@ -237,7 +237,7 @@ function generate_copyright_form_pdf()
 	require($mpath . '/pdf/fpdf/fpdf.php');
 	global $user;
 	$x           = $user->uid;
-	$proposal_id = arg(3);
+	$proposal_id = arg(4);
 	$query2 = db_query("SELECT id FROM om_flowsheet_proposal WHERE approval_status=3 AND uid= :uid", array(
 		':uid' => $user->uid
 	));
@@ -325,7 +325,7 @@ function generate_undertaking_form_pdf()
 	require($mpath . '/pdf/fpdf/fpdf.php');
 	global $user;
 	$x           = $user->uid;
-	$proposal_id = arg(3);
+	$proposal_id = arg(4);
 	$query2 = db_query("SELECT id FROM om_flowsheet_proposal WHERE approval_status=3 AND uid= :uid", array(
 		':uid' => $user->uid
 	));
