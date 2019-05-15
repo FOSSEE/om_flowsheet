@@ -3,7 +3,7 @@
 function om_flowsheet_download_full_project()
 {
 	global $user;
-	$flowsheet_id = arg(3);
+	$flowsheet_id = arg(4);
 	$root_path = om_flowsheet_path();
 	$query = db_select('om_flowsheet_proposal');
 	$query->fields('om_flowsheet_proposal');
@@ -57,13 +57,13 @@ function om_flowsheet_download_full_project()
 	} //$zip_file_count > 0
 	else {
 		drupal_set_message("There are no flowsheet project in this proposal to download", 'error');
-		drupal_goto('flowsheeting-project/full-download/project');
+		drupal_goto('chemical/flowsheeting-project/full-download/project');
 	}
 }
 function om_flowsheet_download_completed_project()
 {
 	global $user;
-	$flowsheet_id = arg(3);
+	$flowsheet_id = arg(4);
 	$root_path = om_flowsheet_path();
 	$query = db_select('om_flowsheet_proposal');
 	$query->fields('om_flowsheet_proposal');
@@ -118,6 +118,6 @@ function om_flowsheet_download_completed_project()
 	} //$zip_file_count > 0
 	else {
 		drupal_set_message("There are no flowsheet project in this proposal to download", 'error');
-		drupal_goto('flowsheeting-project/om-flowsheet-run');
+		drupal_goto('chemical/flowsheeting-project/om-flowsheet-run');
 	}
 }
