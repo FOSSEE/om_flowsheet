@@ -150,7 +150,7 @@ Full Name: ' . $user_info->name_title . ' ' . $user_info->contributor_name . '
 Project Title: ' . $user_info->project_title . '
 Name of compound for which process development is carried out  : ' . $user_info->process_development_compound_name . '
 
-Kindly send us the internship forms available at https://om.fossee.in/flowsheeting-project/internship/forms as early as possible for processing your honorarium on time. In case you have already sent these forms, please share the the consignment number or tracking id with us.
+Kindly send us the internship forms available at https://om.fossee.in/chemical/flowsheeting-project/internship/forms as early as possible for processing your honorarium on time. In case you have already sent these forms, please share the the consignment number or tracking id with us.
 
 Note: It will take upto 45 days from the time we receive your forms, to process your honorarium.
 
@@ -231,7 +231,7 @@ Project Title: ' . $user_info->project_title . '
 Name of compound for which process development is carried out  : ' . $user_info->process_development_compound_name . '
 Reason for Disapproval / Feedback: ' . $form_state['values']['disapprove_message'] . ' 
  
-You are requested to visit the Abstract and Flowsheet submission page at https://om.fossee.in/flowsheeting-project/abstract-code and re-upload the flowsheet and abstract.
+You are requested to visit the Abstract and Flowsheet submission page at https://om.fossee.in/chemical/flowsheeting-project/abstract-code and re-upload the flowsheet and abstract.
 
 Best Wishes,
 
@@ -463,7 +463,7 @@ function _flowsheet_details($flowsheet_proposal_id)
 	} //$abstracts_query_process == TRUE
 	else
 	{
-		$url = l('Upload abstract', 'flowsheeting-project/abstract-code/upload');
+		$url = l('Upload abstract', 'chemical/flowsheeting-project/abstract-code/upload');
 		$unit_operations_used_in_om = "Not entered";
 		$thermodynamic_packages_used = "Not entered";
 		//$sp_filename = "File not uploaded";
@@ -483,7 +483,7 @@ function _flowsheet_details($flowsheet_proposal_id)
 		'header' => $headers,
 		'rows' => $rows
 	));
-	$download_flowsheet = l('Download flowsheet project','flowsheeting-project/full-download/project/'.$flowsheet_proposal_id);
+	$download_flowsheet = l('Download flowsheet project','chemical/flowsheeting-project/full-download/project/'.$flowsheet_proposal_id);
 	$return_html .= '<strong>Proposer Name:</strong><br />' . $abstracts_pro->name_title . ' ' . $abstracts_pro->contributor_name . '<br /><br />';
 	$return_html .= '<strong>Title of the Flowsheet Project:</strong><br />' . $abstracts_pro->project_title . '<br /><br />';
 	$return_html .= '<strong>OpenModelica version:</strong><br />' . $abstracts_pro->version . '<br /><br />';

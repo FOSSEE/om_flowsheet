@@ -57,7 +57,7 @@ function om_flowsheet_download_full_project()
 	} //$zip_file_count > 0
 	else {
 		drupal_set_message("There are no flowsheet project in this proposal to download", 'error');
-		drupal_goto('flowsheeting-project/full-download/project');
+		drupal_goto('chemical/flowsheeting-project/full-download/project');
 	}
 }
 function om_flowsheet_download_completed_project()
@@ -118,6 +118,6 @@ function om_flowsheet_download_completed_project()
 	} //$zip_file_count > 0
 	else {
 		drupal_set_message("There are no flowsheet project in this proposal to download", 'error');
-		drupal_goto('flowsheeting-project/om-flowsheet-run');
+		drupal_goto('chemical/flowsheeting-project/om-flowsheet-run');
 	}
 }

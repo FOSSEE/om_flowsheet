@@ -1040,7 +1040,7 @@ function om_flowsheet_proposal_edit_form_submit($form, &$form_state)
 			$query->condition('id', $proposal_id);
 			$num_deleted = $query->execute();
 			drupal_set_message(t('Proposal Deleted'), 'status');
-			drupal_goto('chemical/flowsheeting-project//manage-proposal');
+			drupal_goto('chemical/flowsheeting-project/manage-proposal');
 			return;
 		} //om_rrmdir_project($proposal_id) == TRUE
 	} //$form_state['values']['delete_proposal'] == 1

@@ -86,7 +86,7 @@ function om_flowsheet_abstract()
 		}
 		if ($abstracts_q->is_submitted == '')
 		{
-			$url = l('Upload abstract', 'flowsheeting-project/abstract-code/upload');
+			$url = l('Upload abstract', 'chemical/flowsheeting-project/abstract-code/upload');
 		} //$abstracts_q->is_submitted == ''
 		else if ($abstracts_q->is_submitted == 1)
 		{
@@ -94,7 +94,7 @@ function om_flowsheet_abstract()
 		} //$abstracts_q->is_submitted == 1
 		else if ($abstracts_q->is_submitted == 0)
 		{
-			$url = l('Edit abstract', 'flowsheeting-project/abstract-code/upload');
+			$url = l('Edit abstract', 'chemical/flowsheeting-project/abstract-code/upload');
 		} //$abstracts_q->is_submitted == 0
 		if ($abstracts_q->unit_operations_used_in_om == '')
 		{
@@ -116,7 +116,7 @@ function om_flowsheet_abstract()
 	} //$abstracts_query_process == TRUE
 	else
 	{
-		$url = l('Upload abstract', 'flowsheeting-project/abstract-code/upload');
+		$url = l('Upload abstract', 'chemical/flowsheeting-project/abstract-code/upload');
 		$unit_operations_used_in_om = "Not entered";
 		$thermodynamic_packages_used = "Not entered";
 		$abstracts_query_process_filename = "File not uploaded";
@@ -331,7 +331,7 @@ function om_flowsheet_upload_abstract_code_form($form, &$form_state)
 	);
 	$form['cancel'] = array(
 		'#type' => 'item',
-		'#markup' => l(t('Cancel'), 'flowsheeting-project/manage-proposal')
+		'#markup' => l(t('Cancel'), 'chemical/flowsheeting-project/manage-proposal')
 	);
 	return $form;
 }
