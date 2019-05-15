@@ -173,14 +173,14 @@ function om_flowsheet_upload_abstract_code_form($form, &$form_state)
 		else
 		{
 			drupal_set_message(t('Invalid proposal selected. Please try again.'), 'error');
-			drupal_goto('flowsheeting-project/abstract-code');
+			drupal_goto('chemical/flowsheeting-project/abstract-code');
 			return;
 		}
 	} //$proposal_q
 	else
 	{
 		drupal_set_message(t('Invalid proposal selected. Please try again.'), 'error');
-		drupal_goto('flowsheeting-project/abstract-code');
+		drupal_goto('chemical/flowsheeting-project/abstract-code');
 		return;
 	}
 	$query = db_select('om_flowsheet_submitted_abstracts');
@@ -192,7 +192,7 @@ function om_flowsheet_upload_abstract_code_form($form, &$form_state)
 		if ($abstracts_q->is_submitted == 1)
 		{
 			drupal_set_message(t('Your abstract is under review, you can not edit exisiting abstract without reviewer permission.'), 'error', $repeat = FALSE);
-			drupal_goto('flowsheeting-project/abstract-code');
+			drupal_goto('chemical/flowsheeting-project/abstract-code');
 			//return;
 		} //$abstracts_q->is_submitted == 1
 	} //$abstracts_q->is_submitted == 1
@@ -746,7 +746,7 @@ function om_flowsheet_upload_abstract_code_form_submit($form, &$form_state)
 	);
 	if (!drupal_mail('om_flowsheet', 'abstract_uploaded', $email_to, language_default(), $params, $from, TRUE))
 		drupal_set_message('Error sending email message.', 'error');
-	drupal_goto('flowsheeting-project/abstract-code');
+	drupal_goto('chemical/flowsheeting-project/abstract-code');
 }
 function default_value_for_selections($opration, $proposal_id)
 {
