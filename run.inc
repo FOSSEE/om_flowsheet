@@ -44,7 +44,7 @@ function om_flowsheet_run_form($form, &$form_state)
 		);
 		$form['selected_flowsheet'] = array(
 			'#type' => 'item',
-			'#markup' => '<div id="ajax_selected_flowsheet">' . l('Download Flowsheet', 'chemical/flowsheeting-project/full-download/project/' . $flowsheet_default_value,array('attributes' => array('title' => 'This is a zip file containing a pdf (abstract) and a dwxml/dwxmz file which is the om flow sheet which is to be viewed by right clicking on the file and opening with om.'))) . '</div>'
+			'#markup' => '<div id="ajax_selected_flowsheet">' . l('Download Flowsheet', 'chemical/flowsheeting-project/full-download/project/' . $flowsheet_default_value,array('attributes' => array('title' => 'This is a zip file containing a pdf (abstract) and a mo file which is the OpenModelica flowsheet which is to be viewed by right clicking on the file and opening with OpenModelica.'))) . '</div>'
 		);
 	}
 	return $form;
@@ -94,7 +94,7 @@ function bootstrap_table_format($headers, $rows)
 		$tbody .= "</tr>";
 	} //$rows as $row
 	$table = "
-            <table class='table table-bordered table-hover' style='margin-left:-140px'>
+            <table class='table table-bordered table-hover table-responsive' style='margin-left:-140px'>
                 <thead>{$thead}</thead>
                 <tbody>{$tbody}</tbody>
             </table>
@@ -135,9 +135,19 @@ function _flowsheet_information($proposal_id)
 }
 function _flowsheet_details($flowsheet_default_value)
 {
+	
 	$flowsheet_details = _flowsheet_information($flowsheet_default_value);
+	$query = db_select('om_flowsheet_submitted_abstracts');
+	$query->fields('om_flowsheet_submitted_abstracts');
+	$query->condition('proposal_id', $flowsheet_default_value);
+	$abstracts_q = $query->execute()->fetchObject();
+	$query = db_select('om_flowsheet_library');
+	$query->fields('om_flowsheet_library');
+	$query->condition('id', $flowsheet_details->simulator_version_id);
+	$result = $query->execute()->fetchObject();
+	$simulator_version_used = l($result->simulator_version_name, $result->link);
 	if ($flowsheet_default_value != 0) {
-		$form['flowsheet_details']['#markup'] = '<span style="color: rgb(128, 0, 0);"><strong>About the Flowsheet</strong></span></td><td style="width: 35%;"><br />' . '<ul>' . '<li><strong>Proposer Name:</strong> ' . $flowsheet_details->name_title . ' ' . $flowsheet_details->contributor_name . '</li>' . '<li><strong>Title of the Flowhseet:</strong> ' . l($flowsheet_details->project_title,'chemical/flowsheeting-project/full-download/project/' . $flowsheet_default_value,array('attributes' => array('title' => 'This is a zip file containing a pdf (abstract) and a dwxml/dwxmz file which is the om flow sheet which is to be viewed by right clicking on the file and opening with om.'))) . '</li>' . '<li><strong>Institution:</strong> ' . $flowsheet_details->university . '</li>' . '<li><strong>Version:</strong> ' . $flowsheet_details->version . '</li>' . '<li><strong>Reference:</strong> ' . $flowsheet_details->reference . '</li>' . '</ul>';
+		$form['flowsheet_details']['#markup'] = '<span style="color: rgb(128, 0, 0);"><strong>About the Flowsheet</strong></span></td><td style="width: 35%;"><br />' . '<ul>' . '<li><strong>Proposer Name:</strong> ' . $flowsheet_details->name_title . ' ' . $flowsheet_details->contributor_name . '</li>' . '<li><strong>Title of the Flowhseet:</strong> ' . l($flowsheet_details->project_title,'chemical/flowsheeting-project/full-download/project/' . $flowsheet_default_value,array('attributes' => array('title' => 'This is a zip file containing a pdf (abstract) and a mo file which is the OpenModelica flowsheet which is to be viewed by right clicking on the file and opening with OpenModelica.'))) . '</li>' . '<li><strong>Institution:</strong> ' . $flowsheet_details->university . '</li>' . '<li><strong>Version:</strong> ' . $flowsheet_details->version . '</li>' . '<li><strong>Reference:</strong> ' . $flowsheet_details->reference . '</li>' . '<li><strong>Simulator version used for creating the flowsheet:</strong> ' . $simulator_version_used . '</li>' . '</ul>';
 		$details = $form['flowsheet_details']['#markup'];
 		return $details;
 	} //$flowsheet_default_value != 0

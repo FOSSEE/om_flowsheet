@@ -318,6 +318,12 @@ Ex: Ethanol'),
 Ex: 64-17-5'),
 		'#required' => TRUE
 	);
+	$form['simulator_version_used'] = array(
+			'#type' => 'select',
+			'#title' => t('Simulator version used for creating the flowsheet'),
+			'#options' => _df_list_of_simulator_version_used(),
+			'#required' => TRUE,
+		);
 	
 	$form['term_condition'] = array(
 		'#type' => 'checkboxes',
@@ -489,6 +495,12 @@ function om_flowsheet_proposal_form_submit($form, &$form_state)
 	} //$form_state['values']['version'] == 'Old version'
 	/* inserting the user proposal */
 	$v = $form_state["values"];
+	$simulator_version_used = $v['simulator_version_used'];
+	$query = db_select('om_flowsheet_library');
+	$query->fields('om_flowsheet_library');
+	$query->condition('simulator_version_name', $simulator_version_used);
+	$result = $query->execute()->fetchObject();
+	$simulator_version_used_id = $result->id;
 	if($form_state['values']['dwsim_flowsheet_check'] == 1)
 	{
 		$dwsim_flowsheet_check = 1;
@@ -496,6 +508,7 @@ function om_flowsheet_proposal_form_submit($form, &$form_state)
 	else{
 		$dwsim_flowsheet_check = 0;
 	}
+
 	$project_title = trim($v['project_title']);
 	$proposar_name = trim($v['name_title'] . ' ' . $v['contributor_name']);
 	$university = trim($v['university']);
@@ -523,6 +536,7 @@ function om_flowsheet_proposal_form_submit($form, &$form_state)
     dwsim_flowsheet_name,
     process_development_compound_name, 
     process_development_compound_cas_number,
+    simulator_version_id,
     approval_status,
     is_completed, 
     dissapproval_reason,
@@ -552,6 +566,7 @@ function om_flowsheet_proposal_form_submit($form, &$form_state)
     :dwsim_flowsheet_name,
     :process_development_compound_name, 
     :process_development_compound_cas_number,
+    :simulator_version_id,
     :approval_status,
     :is_completed, 
     :dissapproval_reason,
@@ -582,6 +597,7 @@ function om_flowsheet_proposal_form_submit($form, &$form_state)
 		":dwsim_flowsheet_name" => $v['dwsim_flowsheet_name'],
 		":process_development_compound_name" => _om_df_sentence_case($v['process_development_compound_name']),
 		":process_development_compound_cas_number" => $v['process_development_compound_cas_no'],
+		":simulator_version_id" => $simulator_version_used_id,
 		":approval_status" => 0,
 		":is_completed" => 0,
 		":dissapproval_reason" => "NULL",

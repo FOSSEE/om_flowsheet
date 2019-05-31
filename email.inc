@@ -59,7 +59,7 @@ Your proposal is under review. You will be notified via email about the approval
 
 Best Wishes,
 
-!site_name Team,
+!site_name Team
 FOSSEE, IIT Bombay', array(
 					'!site_name' => variable_get('site_name', ''),
 					'!user_name' => $user_data->name
@@ -116,7 +116,7 @@ Thank you for participating in the OpenModelica Flowsheeting Project. You are we
 
 Best Wishes,
 
-!site_name Team,
+!site_name Team
 FOSSEE, IIT Bombay', array(
 					'!site_name' => variable_get('site_name', ''),
 					'!user_name' => $user_data->name
@@ -172,7 +172,7 @@ You can upload your abstract using abstract and flowsheet submission interface' 
 
 Best Wishes,
 
-!site_name Team,
+!site_name Team
 FOSSEE, IIT Bombay', array(
 					'!site_name' => variable_get('site_name', ''),
 					'!user_name' => $user_data->name
@@ -229,7 +229,7 @@ Thank you for participating in the OpenModelica Flowsheeting Project. You are we
 
 Best Wishes,
 
-!site_name Team,
+!site_name Team
 FOSSEE, IIT Bombay', array(
 					'!site_name' => variable_get('site_name', ''),
 					'!user_name' => $user_data->name
@@ -286,7 +286,7 @@ You can propose a new flowsheet project.
 
 Best Wishes,
 
-!site_name Team,
+!site_name Team
 FOSSEE,IIT Bombay', array(
 					'!site_name' => variable_get('site_name', ''),
 					'!user_name' => $user_data->name
@@ -326,7 +326,7 @@ You shall be notified via email after the flowsheet and abstract are reviewed an
 
 Best Wishes,
 
-!site_name Team,
+!site_name Team
 FOSSEE, IIT Bombay', array(
 					'!site_name' => variable_get('site_name', ''),
 					'!user_name' => $user_data->name
@@ -371,8 +371,8 @@ Please ensure that ALL the codes follow guidelines at https://om.fossee.in/om-fl
 
 Best Wishes,
 
-!site_name Team,
-FOSSEE,IIT Bombay', array(
+!site_name Team
+FOSSEE, IIT Bombay', array(
 					'!site_name' => variable_get('site_name', ''),
 					'!user_name' => $user_data->name
 				), array(
@@ -402,8 +402,8 @@ Reason for dis-approval : ' . $params['solution_disapproved']['message'] . '
 
 Best Wishes,
 
-!site_name Team,
-FOSSEE,IIT Bombay', array(
+!site_name Team
+FOSSEE, IIT Bombay', array(
 					'!site_name' => variable_get('site_name', ''),
 					'!user_name' => $user_data->name
 				), array(
@@ -434,8 +434,8 @@ Caption : ' . $params['solution_deleted_user']['solution_caption'] . '
 
 Best Wishes,
 
-!site_name Team,
-FOSSEE,IIT Bombay', array(
+!site_name Team
+FOSSEE, IIT Bombay', array(
 					'!site_name' => variable_get('site_name', ''),
 					'!user_name' => $user_data->name
 				), array(
@@ -463,8 +463,8 @@ Please ensure that ALL the codes follow guidelines at https://om.fossee.in/om-fl
 
 Best Wishes,
 
-!site_name Team,
-FOSSEE,IIT Bombay', array(
+!site_name Team
+FOSSEE, IIT Bombay', array(
 					'!site_name' => variable_get('site_name', ''),
 					'!user_name' => $user_data->name
 				), array(

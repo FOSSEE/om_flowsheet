@@ -701,6 +701,19 @@ function _df_list_of_unit_operations()
 	} //$om_unit_operations_list_data = $om_unit_operations_list->fetchObject()
 	return $om_unit_operations;
 }
+function _df_list_of_simulator_version_used()
+{
+	$om_simulator_versions = array();
+	$query = db_select('om_flowsheet_library');
+	$query->fields('om_flowsheet_library');
+	$query->orderBy('id', 'ASC');
+	$om_simulator_versions_list = $query->execute();
+	while ($om_simulator_versions_list_data = $om_simulator_versions_list->fetchObject())
+	{
+		$om_simulator_versions[$om_simulator_versions_list_data->simulator_version_name] = $om_simulator_versions_list_data->simulator_version_name;
+	} //$om_unit_operations_list_data = $om_unit_operations_list->fetchObject()
+	return $om_simulator_versions;
+}
 function _df_list_of_thermodynamic_packages()
 {
 	$om_thermodynamic_packages = array();
@@ -846,21 +859,11 @@ function om_DF_RenameDir($proposal_id, $dir_name)
 		drupal_set_message('Project directory name not present in databse');
 		return;
 	}
-	//var_dump($files);die;
-	/* if ($files != NULL)
-	{
-	$new_directory_name = rename(om_flowsheet_path() . $result->directory_name, om_flowsheet_path() . $dir_name) or drupal_set_message("Unable to rename folder");
-	}
-	else
-	{
-	$new_directory_name = 'Can not rename the directory. Directory not present';
-	}*/
 	return;
 }
-function CreateReadmeFileomFlowsheetingProject($proposal_id)
+function CreateReadmeFileOpenModelicaFlowsheetingProject($proposal_id)
 {
-	$result = db_query("
-                        SELECT * from om_flowsheet_proposal WHERE id = :proposal_id", array(
+	$result = db_query("SELECT * from om_flowsheet_proposal WHERE id = :proposal_id", array(
 		":proposal_id" => $proposal_id
 	));
 	$proposal_data = $result->fetchObject();
@@ -873,7 +876,7 @@ function CreateReadmeFileomFlowsheetingProject($proposal_id)
 	$txt .= "Proposar Name: " . $proposal_data->name_title . " " . $proposal_data->contributor_name . "\n";
 	$txt .= "University: " . $proposal_data->university . "\n";
 	$txt .= "\n" . "\n";
-	$txt .= "om Flowsheet Project By FOSSEE, IIT Bombay" . "\n";
+	$txt .= "OpenModelica Flowsheet Project By FOSSEE, IIT Bombay" . "\n";
 	fwrite($readme_file, $txt);
 	fclose($readme_file);
 	return $txt;

@@ -25,6 +25,12 @@ function om_flowsheet_abstract()
 			//return;
 		} //$abstracts_q->is_submitted == 1
 	} //$abstracts_q
+	//var_dump($abstracts_q->library_used_id);die;
+	$query = db_select('om_flowsheet_library');
+	$query->fields('om_flowsheet_library');
+	$query->condition('id', $proposal_data->simulator_version_id);
+	$result = $query->execute()->fetchObject();
+	$simulator_version_used_name = l($result->simulator_version_name, $result->link);
 	$query_pro = db_select('om_flowsheet_proposal');
 	$query_pro->fields('om_flowsheet_proposal');
 	$query_pro->condition('id', $proposal_data->id);
@@ -49,6 +55,7 @@ function om_flowsheet_abstract()
 	{
 		$abstract_filename = "File not uploaded";
 	}
+	/* Code to upload the simulator package(used earlier)
 	$query_sp = db_select('om_flowsheet_submitted_abstracts_file');
 	$query_sp->fields('om_flowsheet_submitted_abstracts_file');
 	$query_sp->condition('proposal_id', $proposal_data->id);
@@ -68,7 +75,7 @@ function om_flowsheet_abstract()
 	else
 	{
 		$sp_filename = "File not uploaded";
-	}
+	}*/
 	$query_process = db_select('om_flowsheet_submitted_abstracts_file');
 	$query_process->fields('om_flowsheet_submitted_abstracts_file');
 	$query_process->condition('proposal_id', $proposal_data->id);
@@ -120,7 +127,7 @@ function om_flowsheet_abstract()
 		$unit_operations_used_in_om = "Not entered";
 		$thermodynamic_packages_used = "Not entered";
 		$abstracts_query_process_filename = "File not uploaded";
-		$sp_filename = "File not uploaded";
+		//$sp_filename = "File not uploaded";
 	}
 	$headers = array(
 		"Name of compound for which process development is carried out",
@@ -144,8 +151,8 @@ function om_flowsheet_abstract()
 	$return_html .= '<strong>Thermodynamic Packages Used:</strong><br />' . $thermodynamic_packages_used . '<br /><br />';
 	$return_html .= '<strong>Name of compound for which process development is carried out:</strong><br />' . $prodata . '<br />';
 	$return_html .= '<strong>Uploaded an abstract (brief outline) of the project:</strong><br />' . $abstract_filename . '<br /><br />';
-	$return_html .= '<strong>Upload the om flowsheet for the developed process:</strong><br />' . $abstracts_query_process_filename . '<br /><br />';
-	$return_html .= '<strong>Upload the om flowsheet for the Simulator package:</strong><br />' . $sp_filename . '<br /><br />';
+	$return_html .= '<strong>Upload the OpenModelica flowsheet for the developed process:</strong><br />' . $abstracts_query_process_filename . '<br /><br />';
+	$return_html .= '<strong>Version of the library used for OpenModelica flowsheet for the Simulator package:</strong><br />' . $simulator_version_used_name . '<br /><br />';
 	$return_html .= $url . '<br />';
 	return $return_html;
 }
@@ -307,7 +314,7 @@ function om_flowsheet_upload_abstract_code_form($form, &$form_state)
 		'#title' => t('Upload the OpenModelica flowsheet for the developed process.'),
 		'#description' => t('<span style="color:red;">Current File :</span> ' . $existing_uploaded_S_file->filename . '<br />Separate filenames with underscore. No spaces or any special characters allowed in filename.') . '<br />' . t('<span style="color:red;">Allowed file extensions : ') . variable_get('om_flowsheet_flowsheet_developed_process_source_extensions', '') . '</span>'
 	);
-	$existing_uploaded_P_file = default_value_for_uploaded_files("P", $proposal_data->id);
+	/*$existing_uploaded_P_file = default_value_for_uploaded_files("P", $proposal_data->id);
 	if (!$existing_uploaded_P_file)
 	{
 		$existing_uploaded_P_file = new stdClass();
@@ -317,6 +324,18 @@ function om_flowsheet_upload_abstract_code_form($form, &$form_state)
 		'#type' => 'file',
 		'#title' => t('Upload the Simulator package used to simulate the flowsheet'),
 		'#description' => t('<span style="color:red;">Current File :</span> ' . $existing_uploaded_P_file->filename . '<br />Separate filenames with underscore. No spaces or any special characters allowed in filename.') . '<br />' . t('<span style="color:red;">Allowed file extensions : ') . variable_get('om_flowsheet_simulator_package_extensions', '') . '</span>'
+	);*/
+	$query = db_select('om_flowsheet_library');
+	$query->fields('om_flowsheet_library');
+	$query->condition('id', $proposal_data->simulator_version_id);
+	$result = $query->execute()->fetchObject();
+	$simulator_version_used_name = $result->simulator_version_name;
+	$form['simulator_version_used'] = array(
+		'#type' => 'select',
+		'#title' => t('Select the Simulator package used to simulate the flowsheet'),
+		'#options' => _df_list_of_simulator_version_used(),
+		'#required' => TRUE,
+		'#default_value' => $simulator_version_used_name,
 	);
 	$form['prop_id'] = array(
 		'#type' => 'hidden',
@@ -368,7 +387,7 @@ function om_flowsheet_upload_abstract_code_form_validate($form, &$form_state)
 		/* check if file is uploaded */
 		$existing_uploaded_A_file = default_value_for_uploaded_files("A", $form_state['values']['prop_id']);
 		$existing_uploaded_S_file = default_value_for_uploaded_files("S", $form_state['values']['prop_id']);
-		$existing_uploaded_P_file = default_value_for_uploaded_files("P", $form_state['values']['prop_id']);
+		/*$existing_uploaded_P_file = default_value_for_uploaded_files("P", $form_state['values']['prop_id']); */
 		if (!$existing_uploaded_S_file)
 		{
 			if (!($_FILES['files']['name']['upload_flowsheet_developed_process']))
@@ -379,11 +398,11 @@ function om_flowsheet_upload_abstract_code_form_validate($form, &$form_state)
 			if (!($_FILES['files']['name']['upload_an_abstract']))
 				form_set_error('upload_an_abstract', t('Please upload the file.'));
 		} //!$existing_uploaded_A_file
-		if (!$existing_uploaded_P_file)
+		/*if (!$existing_uploaded_P_file)
 		{
 			if (!($_FILES['files']['name']['upload_simulator_package']))
 				form_set_error('upload_simulator_package', t('Please upload the file.'));
-		} 
+		} */
 		/* check for valid filename extensions */
 		if ($_FILES['files']['name']['upload_an_abstract'] || $_FILES['files']['name']['upload_flowsheet_developed_process'] || $_FILES['files']['name']['upload_simulator_package'])
 		{
@@ -396,8 +415,8 @@ function om_flowsheet_upload_abstract_code_form_validate($form, &$form_state)
 						$file_type = 'S';
 					else if (strstr($file_form_name, 'upload_an_abstract'))
 						$file_type = 'A';
-					else if (strstr($file_form_name, 'upload_simulator_package'))
-						$file_type = 'P';
+					//else if (strstr($file_form_name, 'upload_simulator_package'))
+					//	$file_type = 'P';
 					else
 						$file_type = 'U';
 					$allowed_extensions_str = '';
@@ -409,9 +428,9 @@ function om_flowsheet_upload_abstract_code_form_validate($form, &$form_state)
 						case 'A':
 							$allowed_extensions_str = variable_get('om_flowsheet_abstract_upload_extensions', '');
 							break;
-						case 'P':
+						/*case 'P':
 							$allowed_extensions_str = variable_get('om_flowsheet_simulator_package_extensions', '');
-							break;
+							break;*/
 					} //$file_type
 					$allowed_extensions = explode(',', $allowed_extensions_str);
 					$tmp_ext = explode('.', strtolower($_FILES['files']['name'][$file_form_name]));
@@ -434,6 +453,7 @@ function om_flowsheet_upload_abstract_code_form_submit($form, &$form_state)
 {
 	global $user;
 	$v = $form_state['values'];
+	//var_dump($simulator_version_used_id);die;
 	$root_path = om_flowsheet_path();
 	$proposal_data = om_flowsheet_get_proposal();
 	$proposal_id = $proposal_data->id;
@@ -453,6 +473,13 @@ function om_flowsheet_upload_abstract_code_form_submit($form, &$form_state)
 	$args_s = array(
 		":proposal_id" => $proposal_id
 	);
+	$simulator_version_used = $v['simulator_version_used'];
+	//var_dump($simulator_version_used);die;
+	$query = db_select('om_flowsheet_library');
+	$query->fields('om_flowsheet_library');
+	$query->condition('simulator_version_name', $simulator_version_used); 
+	$result = $query->execute()->fetchObject();
+	$simulator_version_used_id = $result->id;
 	$query_s_result = db_query($query_s, $args_s)->fetchObject();
 	if (!$query_s_result)
 	{
@@ -480,9 +507,10 @@ function om_flowsheet_upload_abstract_code_form_submit($form, &$form_state)
 		$submitted_abstract_id = db_query($query, $args, array(
 			'return' => Database::RETURN_INSERT_ID
 		));
-		$query1 = "UPDATE {om_flowsheet_proposal} SET is_submitted = :is_submitted WHERE id = :id";
+		$query1 = "UPDATE {om_flowsheet_proposal} SET simulator_version_id = :simulator_version_id, is_submitted = :is_submitted WHERE id = :id";
 		$args1 = array(
 			":is_submitted" => 1,
+			":simulator_version_used_id" => $simulator_version_used_id,
 			":id" => $proposal_id
 		);
 		db_query($query1,$args1);
@@ -504,9 +532,10 @@ function om_flowsheet_upload_abstract_code_form_submit($form, &$form_state)
 			":is_submitted" => 1,
 			":proposal_id" => $proposal_id
 		);
-		$query1 = "UPDATE {om_flowsheet_proposal} SET is_submitted = :is_submitted WHERE id = :id";
+		$query1 = "UPDATE {om_flowsheet_proposal} SET simulator_version_id = :simulator_version_id, is_submitted = :is_submitted WHERE id = :id";
 		$args1 = array(
 			":is_submitted" => 1,
+			":simulator_version_id" => $simulator_version_used_id,
 			":id" => $proposal_id
 		);
 		db_query($query1,$args1);
@@ -529,10 +558,10 @@ function om_flowsheet_upload_abstract_code_form_submit($form, &$form_state)
 			{
 				$file_type = 'A';
 			} //strstr($file_form_name, 'upload_an_abstract')
-			else if (strstr($file_form_name, 'upload_simulator_package'))
+			/*else if (strstr($file_form_name, 'upload_simulator_package'))
 			{
 				$file_type = 'P';
-			}
+			} */
 			else
 			{
 				$file_type = 'U';
@@ -662,7 +691,7 @@ function om_flowsheet_upload_abstract_code_form_submit($form, &$form_state)
 						drupal_set_message('Error uploading file : ' . $dest_path . $file_name, 'error');
 					}
 					break;
-					case 'P':
+					/*case 'P':
 					if (file_exists($root_path . $dest_path . $_FILES['files']['name'][$file_form_name]))
 					{
 						//unlink($root_path . $dest_path . $_FILES['files']['name'][$file_form_name]);		
@@ -672,10 +701,10 @@ function om_flowsheet_upload_abstract_code_form_submit($form, &$form_state)
 							'!filename' => $_FILES['files']['name'][$file_form_name]
 						)), 'error');
 					} //file_exists($root_path . $dest_path . $_FILES['files']['name'][$file_form_name])
-					/* uploading file */
+					/* uploading file 
 					else if (move_uploaded_file($_FILES['files']['tmp_name'][$file_form_name], $root_path . $dest_path . $_FILES['files']['name'][$file_form_name]))
 					{
-						/* for uploaded files making an entry in the database */
+						/* for uploaded files making an entry in the database 
 						$query_ab_f = "SELECT * FROM om_flowsheet_submitted_abstracts_file WHERE proposal_id = :proposal_id AND filetype = 
 				:filetype";
 						$args_ab_f = array(
@@ -723,7 +752,7 @@ function om_flowsheet_upload_abstract_code_form_submit($form, &$form_state)
 					{
 						drupal_set_message('Error uploading file : ' . $dest_path . $file_name, 'error');
 					}
-					break;
+					break; */
 			} //$file_type
 		} //$file_name
 	} //$_FILES['files']['name'] as $file_form_name => $file_name
@@ -777,6 +806,7 @@ function default_value_for_selections($opration, $proposal_id)
 			$tpui++;
 		} //$tpuid as $thermodynamic_item->$tpui
 	} //$opration == "thermodynamic_packages_used"
+
 	else
 	{
 		return $selected_pacakege_array;
@@ -801,12 +831,12 @@ function default_value_for_uploaded_files($filetype, $proposal_id)
 		$filetype_q = $query->execute()->fetchObject();
 		return $filetype_q;
 	}
-	elseif ($filetype == "P")
+	/*elseif ($filetype == "P")
 	{
 		$query->condition('filetype', $filetype);
 		$filetype_q = $query->execute()->fetchObject();
 		return $filetype_q;
-	} //$filetype == "S"
+	}*/ //$filetype == "S"
 	else
 	{
 		return;
