@@ -377,11 +377,11 @@ function om_flowsheet_upload_abstract_code_form_validate($form, &$form_state)
 		form_set_error('thermodynamic_packages_used', t('Please select.'));
 	}
 	
-	if ($form_state['values']['list_of_compounds_from_om_database_used_in_process_flowsheet'])
+	/*if ($form_state['values']['list_of_compounds_from_om_database_used_in_process_flowsheet'])
 	{
 		$list_of_compounds_from_om_database_used_in_process_flowsheet = implode("| ", $_POST['list_of_compounds_from_om_database_used_in_process_flowsheet']);
 		$form_state['values']['list_of_compounds_from_om_database_used_in_process_flowsheet'] = $list_of_compounds_from_om_database_used_in_process_flowsheet;
-	} //$form_state['values']['list_of_compounds_from_om_database_used_in_process_flowsheet']
+	}*/ //$form_state['values']['list_of_compounds_from_om_database_used_in_process_flowsheet']
 	if (isset($_FILES['files']))
 	{
 		/* check if file is uploaded */
@@ -510,7 +510,7 @@ function om_flowsheet_upload_abstract_code_form_submit($form, &$form_state)
 		$query1 = "UPDATE {om_flowsheet_proposal} SET simulator_version_id = :simulator_version_id, is_submitted = :is_submitted WHERE id = :id";
 		$args1 = array(
 			":is_submitted" => 1,
-			":simulator_version_used_id" => $simulator_version_used_id,
+			":simulator_version_id" => $simulator_version_used_id,
 			":id" => $proposal_id
 		);
 		db_query($query1,$args1);

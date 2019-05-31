@@ -474,11 +474,11 @@ function om_flowsheet_proposal_form_validate($form, &$form_state)
 			form_set_error('older', t('Please provide valid version'));
 		} //$form_state['values']['older'] == ''
 	} //$form_state['values']['version'] == 'Old version'
-	if ($form_state['values']['om_database_compound_name'])
+	/*if ($form_state['values']['om_database_compound_name'])
 	{
 		$om_database_compound_name = implode("| ", $_POST['om_database_compound_name']);
 		$form_state['values']['om_database_compound_name'] = trim($om_database_compound_name);
-	} //$form_state['values']['om_database_compound_name']
+	} *///$form_state['values']['om_database_compound_name']
 	return;
 }
 function om_flowsheet_proposal_form_submit($form, &$form_state)
