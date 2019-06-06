@@ -546,9 +546,10 @@ function om_flowsheet_proposal_form_submit($form, &$form_state)
 	if($form_state['values']['dwsim_flowsheet_check'] == 1)
 	{
 		$project_title = $v['dwsim_flowsheet_name_dropdown'];
+		$dwsim_flowsheet_check = 1;
 	}
 	else{
-
+		$dwsim_flowsheet_check = 0;
 		$project_title = $v['project_title'];
 	}
 
