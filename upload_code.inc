@@ -376,12 +376,6 @@ function om_flowsheet_upload_abstract_code_form_validate($form, &$form_state)
 	{
 		form_set_error('thermodynamic_packages_used', t('Please select.'));
 	}
-	
-	/*if ($form_state['values']['list_of_compounds_from_om_database_used_in_process_flowsheet'])
-	{
-		$list_of_compounds_from_om_database_used_in_process_flowsheet = implode("| ", $_POST['list_of_compounds_from_om_database_used_in_process_flowsheet']);
-		$form_state['values']['list_of_compounds_from_om_database_used_in_process_flowsheet'] = $list_of_compounds_from_om_database_used_in_process_flowsheet;
-	}*/ //$form_state['values']['list_of_compounds_from_om_database_used_in_process_flowsheet']
 	if (isset($_FILES['files']))
 	{
 		/* check if file is uploaded */
