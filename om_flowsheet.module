@@ -885,7 +885,7 @@ function _df_list_of_dwsim_flowsheets()
 	{
 		$dwsim_flowsheets[$dwsim_flowsheets_list_data->project_title] = $dwsim_flowsheets_list_data->project_title;
 	}
-	$flowsheets = array_unique(array_merge(array_diff($dwsim_flowsheets, $om_flowsheets)));
+	$flowsheets = array_diff($dwsim_flowsheets, $om_flowsheets);
 	//var_dump($flowsheets);die;
 	return $flowsheets;
 }
