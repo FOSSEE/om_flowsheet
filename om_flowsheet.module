@@ -701,6 +701,20 @@ function _df_list_of_unit_operations()
 	} //$om_unit_operations_list_data = $om_unit_operations_list->fetchObject()
 	return $om_unit_operations;
 }
+function _df_list_of_simulator_version_used()
+{
+	$om_simulator_versions = array();
+	$query = db_select('om_flowsheet_library');
+	$query->fields('om_flowsheet_library');
+	$query->orderBy('id', 'ASC');
+	$om_simulator_versions_list = $query->execute();
+	while ($om_simulator_versions_list_data = $om_simulator_versions_list->fetchObject())
+	{
+		$om_simulator_versions[$om_simulator_versions_list_data->simulator_version_name] = $om_simulator_versions_list_data->simulator_version_name;
+	} //$om_unit_operations_list_data = $om_unit_operations_list->fetchObject()
+	return $om_simulator_versions;
+}
+
 function _df_list_of_thermodynamic_packages()
 {
 	$om_thermodynamic_packages = array();
@@ -788,6 +802,7 @@ function _om_df_list_of_departments()
 function _om_df_list_of_software_version()
 {
 	$software_version = array();
+	db_set_active();
 	$query = db_select('om_flowsheet_version');
 	$query->fields('om_flowsheet_version');
 	$query->orderBy('id', 'ASC');
@@ -846,21 +861,37 @@ function om_DF_RenameDir($proposal_id, $dir_name)
 		drupal_set_message('Project directory name not present in databse');
 		return;
 	}
-	//var_dump($files);die;
-	/* if ($files != NULL)
-	{
-	$new_directory_name = rename(om_flowsheet_path() . $result->directory_name, om_flowsheet_path() . $dir_name) or drupal_set_message("Unable to rename folder");
-	}
-	else
-	{
-	$new_directory_name = 'Can not rename the directory. Directory not present';
-	}*/
 	return;
 }
-function CreateReadmeFileomFlowsheetingProject($proposal_id)
+function _df_list_of_dwsim_flowsheets()
 {
-	$result = db_query("
-                        SELECT * from om_flowsheet_proposal WHERE id = :proposal_id", array(
+	$dwsim_flowsheets = array();
+	$om_flowsheets = array();
+	$flowsheets = array();
+	$query = db_select('om_flowsheet_proposal');
+	$query->fields('om_flowsheet_proposal');
+		$query->condition(db_or()->condition('approval_status',0)->condition('approval_status',1)->condition('approval_status',3));
+	$result = $query->execute();
+	while ($om_flowsheets_list_data = $result->fetchObject())
+	{
+		$om_flowsheets[$om_flowsheets_list_data->project_title] = $om_flowsheets_list_data->project_title;
+	}
+	db_set_active('dwsim_2015');
+	$query = db_select('dwsim_flowsheet_proposal');
+	$query->fields('dwsim_flowsheet_proposal');
+	$query->condition('approval_status', 3);
+	$dwsim_flowsheets_list = $query->execute();
+	while ($dwsim_flowsheets_list_data = $dwsim_flowsheets_list->fetchObject())
+	{
+		$dwsim_flowsheets[$dwsim_flowsheets_list_data->project_title] = $dwsim_flowsheets_list_data->project_title;
+	}
+	$flowsheets = array_diff($dwsim_flowsheets, $om_flowsheets);
+	//var_dump($flowsheets);die;
+	return $flowsheets;
+}
+function CreateReadmeFileOpenModelicaFlowsheetingProject($proposal_id)
+{
+	$result = db_query("SELECT * from om_flowsheet_proposal WHERE id = :proposal_id", array(
 		":proposal_id" => $proposal_id
 	));
 	$proposal_data = $result->fetchObject();
@@ -873,7 +904,7 @@ function CreateReadmeFileomFlowsheetingProject($proposal_id)
 	$txt .= "Proposar Name: " . $proposal_data->name_title . " " . $proposal_data->contributor_name . "\n";
 	$txt .= "University: " . $proposal_data->university . "\n";
 	$txt .= "\n" . "\n";
-	$txt .= "om Flowsheet Project By FOSSEE, IIT Bombay" . "\n";
+	$txt .= "OpenModelica Flowsheet Project By FOSSEE, IIT Bombay" . "\n";
 	fwrite($readme_file, $txt);
 	fclose($readme_file);
 	return $txt;

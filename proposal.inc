@@ -241,13 +241,6 @@ function om_flowsheet_proposal_form($form, &$form_state, $no_js_use = FALSE)
 		'#type' => 'item',
 		'#markup' => '<hr>'
 	);
-	$form['project_title'] = array(
-		'#type' => 'textarea',
-		'#title' => t('Project Title'),
-		'#size' => 250,
-		'#description' => t('Maximum character limit is 250'),
-		'#required' => TRUE
-	);
 	$form['dwsim_flowsheet_check'] = array(
             '#type' => 'radios',
             '#title' => t('Is the proposed OpenModelica flowsheet is from list of Completed DWSIM Flowsheets?'),
@@ -257,7 +250,37 @@ function om_flowsheet_proposal_form($form, &$form_state, $no_js_use = FALSE)
 			),
             '#validated' => TRUE,
 	);
-	$form['dwsim_flowsheet_name'] = array(
+	$form['dwsim_flowsheet_name_dropdown'] = array(
+            '#type' => 'select',
+            '#title' => t('Select the name of flowsheet proposed.'),
+            '#required' => TRUE,
+            '#options' => _df_list_of_dwsim_flowsheets(),
+           // '#description' => t('For example, if you are proposing flowsheet no. 10 from the list of completed DWSIM flowsheet, enter as: "10. Removal of Isopentane in Gasoline Manufacturing Plant"'),
+            '#validated' => TRUE,
+            '#states' => array(
+                'visible' => array(
+                    ':input[name="dwsim_flowsheet_check"]' => array(
+                        'value' => '1'
+                    )
+                )
+            ),
+	);
+	$form['project_title'] = array(
+		'#type' => 'textarea',
+		'#title' => t('Project Title'),
+		'#size' => 250,
+		'#description' => t('Maximum character limit is 250'),
+		'#required' => TRUE,
+		'#validated' => TRUE,
+		'#states' => array(
+                'visible' => array(
+                    ':input[name="dwsim_flowsheet_check"]' => array(
+                        'value' => '0'
+                    )
+                )
+            ),
+	);
+	/*$form['dwsim_flowsheet_name'] = array(
             '#type' => 'textfield',
             '#title' => t('Enter the exact name of flowsheet along with its serial number.'),
             '#required' => TRUE,
@@ -270,7 +293,7 @@ function om_flowsheet_proposal_form($form, &$form_state, $no_js_use = FALSE)
                     )
                 )
             ),
-	);
+	);*/ 
 	$form['reference'] = array(
 		'#type' => 'textfield',
 		'#title' => t('Reference'),
@@ -318,6 +341,12 @@ Ex: Ethanol'),
 Ex: 64-17-5'),
 		'#required' => TRUE
 	);
+	$form['simulator_version_used'] = array(
+			'#type' => 'select',
+			'#title' => t('Simulator version used for creating the flowsheet'),
+			'#options' => _df_list_of_simulator_version_used(),
+			'#required' => TRUE,
+		);
 	
 	$form['term_condition'] = array(
 		'#type' => 'checkboxes',
@@ -337,7 +366,7 @@ Ex: 64-17-5'),
 /***************************************/
 function om_flowsheet_proposal_form_validate($form, &$form_state)
 {
-	$project_title = $form_state['values']['project_title'];
+	/*$project_title = $form_state['values']['project_title'];
 	$query = db_select('om_flowsheet_proposal');
 	$query->fields('om_flowsheet_proposal');
 	$query->condition('project_title', $project_title);
@@ -347,7 +376,7 @@ function om_flowsheet_proposal_form_validate($form, &$form_state)
 	{
 		form_set_error('project_title', t('Project title name already exists'));
 		return;
-	}
+	}*/
 	/*$query = db_select('om_flowsheet_proposal');
 	$query->fields('om_flowsheet_proposal');
 	$query->condition('project_title', $project_title);
@@ -412,7 +441,26 @@ function om_flowsheet_proposal_form_validate($form, &$form_state)
 		} //$form_state['values']['city'] == ''
 	}
 	//Validation for project title
-	$form_state['values']['project_title'] = trim($form_state['values']['project_title']);
+	if($form_state['values']['dwsim_flowsheet_check'] == 1)
+	{
+		$project_title = $form_state['values']['dwsim_flowsheet_name_dropdown'];
+	}
+	else{
+
+		$project_title = $form_state['values']['project_title'];
+	}
+	//var_dump($project_title);die;
+	$query = db_select('om_flowsheet_proposal');
+	$query->fields('om_flowsheet_proposal');
+	$query->condition('project_title', $project_title);
+	$query->condition(db_or()->condition('approval_status',0)->condition('approval_status',1)->condition('approval_status',3)); 
+	$result = $query->execute()->rowCount();
+	//var_dump($result);die;
+	if ($result >= 1)
+	{
+		form_set_error('', t('Project title name already exists'));
+		return;
+	}
 	if ($form_state['values']['project_title'] != '')
 	{
 		if (strlen($form_state['values']['project_title']) > 250)
@@ -428,10 +476,10 @@ function om_flowsheet_proposal_form_validate($form, &$form_state)
 			form_set_error('project_title', t('Special characters are not allowed for project title'));
 	 //strlen($form_state['values']['project_title']) < 10
 	} //$form_state['values']['project_title'] != ''
-	else
+	/*else
 	{
 		form_set_error('project_title', t('Project title shoud not be empty'));
-	}
+	} */
 	// validation for Name of compound for which process development is carried out
 	$form_state['values']['process_development_compound_name'] = trim($form_state['values']['process_development_compound_name']);
 	if ($form_state['values']['process_development_compound_name'] != '')
@@ -468,11 +516,11 @@ function om_flowsheet_proposal_form_validate($form, &$form_state)
 			form_set_error('older', t('Please provide valid version'));
 		} //$form_state['values']['older'] == ''
 	} //$form_state['values']['version'] == 'Old version'
-	if ($form_state['values']['om_database_compound_name'])
+	/*if ($form_state['values']['om_database_compound_name'])
 	{
 		$om_database_compound_name = implode("| ", $_POST['om_database_compound_name']);
 		$form_state['values']['om_database_compound_name'] = trim($om_database_compound_name);
-	} //$form_state['values']['om_database_compound_name']
+	} *///$form_state['values']['om_database_compound_name']
 	return;
 }
 function om_flowsheet_proposal_form_submit($form, &$form_state)
@@ -489,14 +537,23 @@ function om_flowsheet_proposal_form_submit($form, &$form_state)
 	} //$form_state['values']['version'] == 'Old version'
 	/* inserting the user proposal */
 	$v = $form_state["values"];
+	$simulator_version_used = $v['simulator_version_used'];
+	$query = db_select('om_flowsheet_library');
+	$query->fields('om_flowsheet_library');
+	$query->condition('simulator_version_name', $simulator_version_used);
+	$result = $query->execute()->fetchObject();
+	$simulator_version_used_id = $result->id;
 	if($form_state['values']['dwsim_flowsheet_check'] == 1)
 	{
+		$project_title = $v['dwsim_flowsheet_name_dropdown'];
 		$dwsim_flowsheet_check = 1;
 	}
 	else{
 		$dwsim_flowsheet_check = 0;
+		$project_title = $v['project_title'];
 	}
-	$project_title = trim($v['project_title']);
+
+	//$project_title = trim($v['project_title']);
 	$proposar_name = trim($v['name_title'] . ' ' . $v['contributor_name']);
 	$university = trim($v['university']);
 	$month_year_of_degree = $v['month_year_of_degree'];
@@ -520,9 +577,9 @@ function om_flowsheet_proposal_form_submit($form, &$form_state)
     project_guide_university,
     project_title, 
     dwsim_flowsheet_check,
-    dwsim_flowsheet_name,
     process_development_compound_name, 
     process_development_compound_cas_number,
+    simulator_version_id,
     approval_status,
     is_completed, 
     dissapproval_reason,
@@ -549,9 +606,9 @@ function om_flowsheet_proposal_form_submit($form, &$form_state)
     :project_guide_university,
     :project_title, 
     :dwsim_flowsheet_check,
-    :dwsim_flowsheet_name,
     :process_development_compound_name, 
     :process_development_compound_cas_number,
+    :simulator_version_id,
     :approval_status,
     :is_completed, 
     :dissapproval_reason,
@@ -577,11 +634,12 @@ function om_flowsheet_proposal_form_submit($form, &$form_state)
 		":project_guide_name" => $v['project_guide_name'],
 		":project_guide_email_id" => trim($v['project_guide_email_id']),
 		":project_guide_university" => trim($v['project_guide_university']),
-		":project_title" => $v['project_title'],
+		":project_title" => $project_title,
 		":dwsim_flowsheet_check" => $dwsim_flowsheet_check,
-		":dwsim_flowsheet_name" => $v['dwsim_flowsheet_name'],
+		//":dwsim_flowsheet_name" => $v['dwsim_flowsheet_name'],
 		":process_development_compound_name" => _om_df_sentence_case($v['process_development_compound_name']),
 		":process_development_compound_cas_number" => $v['process_development_compound_cas_no'],
+		":simulator_version_id" => $simulator_version_used_id,
 		":approval_status" => 0,
 		":is_completed" => 0,
 		":dissapproval_reason" => "NULL",

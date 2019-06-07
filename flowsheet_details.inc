@@ -7,7 +7,6 @@ function om_flowsheet_completed_proposals_all()
 	$query->fields('om_flowsheet_proposal');
 	$query->condition('approval_status', 3);
 	$query->orderBy('actual_completion_date', 'ASC');
-	//$query->condition('is_completed', 1);
 	$result = $query->execute();
 	if ($result->rowCount() == 0)
 	{
@@ -24,7 +23,7 @@ function om_flowsheet_completed_proposals_all()
 			$completion_date = date("Y", $row->actual_completion_date);
 			$preference_rows[] = array(
 				$i,
-				l($row->project_title, "chemical/flowsheeting-project/om-flowsheet-run/" . $row->id, array('attributes' => array('title' => 'This is a zip file containing a pdf (abstract) and a dwxml/dwxmz file which is the om flow sheet which is to be viewed by right clicking on the file and opening with om.'))),
+				l($row->project_title, "chemical/flowsheeting-project/om-flowsheet-run/" . $row->id, array('attributes' => array('title' => 'This is a zip file containing a pdf (abstract) and a mo file which is the OpenModelica flowsheet which is to be viewed by right clicking on the file and opening with OpenModelica.'))),
 				$row->contributor_name,
 				$row->university,
 				$completion_date

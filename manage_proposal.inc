@@ -194,6 +194,11 @@ function om_flowsheet_proposal_approval_form($form, &$form_state)
 	{
 		$project_guide_email_id = $proposal_data->project_guide_email_id;
 	}
+	$query = db_select('om_flowsheet_library');
+	$query->fields('om_flowsheet_library');
+	$query->condition('id', $proposal_data->simulator_version_id);
+	$result = $query->execute()->fetchObject();
+	$simulator_version_name = l($result->simulator_version_name, $result->link);
 	$form['contributor_name'] = array(
 		'#type' => 'item',
 		'#markup' => l($proposal_data->name_title . ' ' . $proposal_data->contributor_name, 'user/' . $proposal_data->uid),
@@ -293,6 +298,11 @@ function om_flowsheet_proposal_approval_form($form, &$form_state)
 		'#type' => 'item',
 		'#title' => t('Name of compound for which process development is carried out'),
 		'#markup' => $prodata
+	);
+	$form['simulator_version_used'] = array(
+		'#type' => 'item',
+		'#title' => t('Simulator version used for creating the flowsheet'),
+		'#markup' => $simulator_version_name,
 	);
 	$form['reference'] = array(
 		'#type' => 'item',
@@ -477,6 +487,11 @@ function om_flowsheet_proposal_status_form($form, &$form_state)
 		drupal_goto('chemical/flowsheeting-project/manage-proposal');
 		return;
 	}
+	$query = db_select('om_flowsheet_library');
+	$query->fields('om_flowsheet_library');
+	$query->condition('id', $proposal_data->simulator_version_id);
+	$result = $query->execute()->fetchObject();
+	$simulator_version_name = l($result->simulator_version_name, $result->link);
 	$form['contributor_name'] = array(
 		'#type' => 'item',
 		'#markup' => l($proposal_data->name_title . ' ' . $proposal_data->contributor_name, 'user/' . $proposal_data->uid),
@@ -562,6 +577,11 @@ function om_flowsheet_proposal_status_form($form, &$form_state)
 		'#type' => 'item',
 		'#title' => t('CAS Number of compound for which process development is carried out'),
 		'#markup' => $proposal_data->process_development_compound_cas_number
+	);
+	$form['simulator_version_used'] = array(
+		'#type' => 'item',
+		'#title' => t('Simulator version used for creating the flowsheet'),
+		'#markup' => $simulator_version_name,
 	);
 	$form['reference'] = array(
 		'#type' => 'item',
@@ -666,7 +686,7 @@ function om_flowsheet_proposal_status_form_submit($form, &$form_state)
 			":expected_completion_date" => time()
 		);
 		$result = db_query($up_query, $args);
-		CreateReadmeFileomFlowsheetingProject($proposal_id);
+		CreateReadmeFileOpenModelicaFlowsheetingProject($proposal_id);
 		if (!$result)
 		{
 			drupal_set_message('Error in update status', 'error');
@@ -728,6 +748,11 @@ function om_flowsheet_proposal_edit_form($form, &$form_state)
 		drupal_goto('chemical/flowsheeting-project/manage-proposal');
 		return;
 	}
+	$query = db_select('om_flowsheet_library');
+	$query->fields('om_flowsheet_library');
+	$query->condition('id', $proposal_data->simulator_version_id);
+	$result = $query->execute()->fetchObject();
+	$simulator_version_name = $result->simulator_version_name;
 	$user_data = user_load($proposal_data->uid);
 	$form['name_title'] = array(
 		'#type' => 'select',
@@ -939,6 +964,13 @@ else{
 		'#default_value' => $proposal_data->process_development_compound_cas_number
 		
 	);
+	$form['simulator_version_used'] = array(
+			'#type' => 'select',
+			'#title' => t('Simulator version used for creating the flowsheet'),
+			'#options' => _df_list_of_simulator_version_used(),
+			'#required' => TRUE,
+			'#default_value' => $simulator_version_name,
+		);
 	$form['delete_proposal'] = array(
 		'#type' => 'checkbox',
 		'#title' => t('Delete Proposal')
@@ -1046,6 +1078,12 @@ function om_flowsheet_proposal_edit_form_submit($form, &$form_state)
 	} //$form_state['values']['delete_proposal'] == 1
 	/* update proposal */
 	$v = $form_state['values'];
+	$simulator_version_used = $v['simulator_version_used'];
+	$query = db_select('om_flowsheet_library');
+	$query->fields('om_flowsheet_library');
+	$query->condition('simulator_version_name', $simulator_version_used);
+	$result = $query->execute()->fetchObject();
+	$simulator_version_used_id = $result->id;
 	$project_title = $v['project_title'];
 	$proposar_name = $v['name_title'] . ' ' . $v['contributor_name'];
 	$university = $v['university'];
@@ -1074,7 +1112,8 @@ function om_flowsheet_proposal_edit_form_submit($form, &$form_state)
 				project_guide_name=:project_guide_name,
 				month_year_of_degree=:month_year_of_degree,
 				process_development_compound_name=:process_development_compound_name,
-				process_development_compound_cas_number=:process_development_compound_cas_number
+				process_development_compound_cas_number=:process_development_compound_cas_number,
+				simulator_version_id = :simulator_version_id
 				WHERE id=:proposal_id";
 	$args = array(
 		':name_title' => $v['name_title'],
@@ -1093,6 +1132,7 @@ function om_flowsheet_proposal_edit_form_submit($form, &$form_state)
 		':month_year_of_degree' => $v['month_year_of_degree'],
 		':process_development_compound_name' => $v['process_development_compound_name'],
 		':process_development_compound_cas_number' => $v['process_development_compound_cas_no'],
+		':simulator_version_id' => $simulator_version_used_id,
 		':proposal_id' => $proposal_id
 	);
 	$result = db_query($query, $args);

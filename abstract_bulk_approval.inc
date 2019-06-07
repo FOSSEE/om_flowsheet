@@ -80,9 +80,6 @@ function ajax_bulk_flowsheet_abstract_details_callback($form, $form_state)
 	{
 		$commands[] = ajax_command_html('#ajax_selected_flowsheet', _flowsheet_details($flowsheet_project_default_value));
 		$form['flowsheet_actions']['#options'] = _bulk_list_flowsheet_actions();
-		//$form['lab_experiment_list']['#options'] = _ajax_bulk_get_experiment_list($lab_default_value);
-		// $commands[] = ajax_command_data('#ajax_selected_flowsheet', 'form_state_value_select', $form_state['values']['lab_experiment_list']);
-		// $commands[] = ajax_command_replace('#ajax_selected_experiment', drupal_render($form['lab_experiment_list']));
 		$commands[] = ajax_command_replace('#ajax_selected_flowsheet_action', drupal_render($form['flowsheet_actions']));
 	} //$flowsheet_project_default_value != 0
 	else
@@ -156,7 +153,7 @@ Note: It will take upto 45 days from the time we receive your forms, to process 
 
 Best Wishes,
 
-!site_name Team,
+!site_name Team
 FOSSEE, IIT Bombay', array(
 							'!site_name' => variable_get('site_name', ''),
 							'!user_name' => $user_data->name
@@ -235,7 +232,7 @@ You are requested to visit the Abstract and Flowsheet submission page at https:/
 
 Best Wishes,
 
-!site_name Team,
+!site_name Team
 FOSSEE, IIT Bombay', array(
 							'!site_name' => variable_get('site_name', ''),
 							'!user_name' => $user_data->name
@@ -303,7 +300,7 @@ Now, you can propose a new flowsheet.
 
 Best Wishes,
 
-!site_name Team,
+!site_name Team
 FOSSEE, IIT Bombay', array(
 					'!site_name' => variable_get('site_name', ''),
 					'!user_name' => $user_data->name
@@ -395,7 +392,7 @@ function _flowsheet_details($flowsheet_proposal_id)
 	{
 		$abstract_filename = "File not uploaded";
 	}
-	$query_sp = db_select('om_flowsheet_submitted_abstracts_file');
+	/*$query_sp = db_select('om_flowsheet_submitted_abstracts_file');
 	$query_sp->fields('om_flowsheet_submitted_abstracts_file');
 	$query_sp->condition('proposal_id', $flowsheet_proposal_id);
 	$query_sp->condition('filetype', 'P');
@@ -414,7 +411,7 @@ function _flowsheet_details($flowsheet_proposal_id)
 	else
 	{
 		$sp_filename = "File not uploaded";
-	}
+	}*/
 	$query_process = db_select('om_flowsheet_submitted_abstracts_file');
 	$query_process->fields('om_flowsheet_submitted_abstracts_file');
 	$query_process->condition('proposal_id', $flowsheet_proposal_id);
@@ -483,6 +480,11 @@ function _flowsheet_details($flowsheet_proposal_id)
 		'header' => $headers,
 		'rows' => $rows
 	));
+	$query = db_select('om_flowsheet_library');
+	$query->fields('om_flowsheet_library');
+	$query->condition('id', $abstracts_pro->simulator_version_id);
+	$result = $query->execute()->fetchObject();
+	$simulator_version_used = l($result->simulator_version_name, $result->link);
 	$download_flowsheet = l('Download flowsheet project','chemical/flowsheeting-project/full-download/project/'.$flowsheet_proposal_id);
 	$return_html .= '<strong>Proposer Name:</strong><br />' . $abstracts_pro->name_title . ' ' . $abstracts_pro->contributor_name . '<br /><br />';
 	$return_html .= '<strong>Title of the Flowsheet Project:</strong><br />' . $abstracts_pro->project_title . '<br /><br />';
@@ -492,7 +494,7 @@ function _flowsheet_details($flowsheet_proposal_id)
 	$return_html .= '<strong>Name of compound for which process development is carried out:</strong><br />' . $prodata;
 	$return_html .= '<strong>Uploaded an abstract (brief outline) of the project:</strong><br />' . $abstract_filename . '<br /><br />';
 	$return_html .= '<strong>Upload the OpenModelica flowsheet for the developed process:</strong><br />' . $abstracts_query_process_filename . '<br /><br />';
-	$return_html .= '<strong>Upload the OpenModelica flowsheet for the simulator package:</strong><br />' . $sp_filename . '<br /><br />';
+	$return_html .= '<strong>Upload the OpenModelica flowsheet for the simulator package:</strong><br />' . $simulator_version_used . '<br /><br />';
 	$return_html .= $download_flowsheet;
 	return $return_html;
 }
