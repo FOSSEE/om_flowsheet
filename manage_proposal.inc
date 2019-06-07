@@ -275,11 +275,11 @@ function om_flowsheet_proposal_approval_form($form, &$form_state)
 		'#markup' => $proposal_data->project_title,
 		'#title' => t('Title of the Flowsheet Project')
 	);
-	$form['dwsim_flowsheet_name'] = array(
+	/*$form['dwsim_flowsheet_name'] = array(
 		'#type' => 'item',
 		'#title' => t('Name of the DWSIM flowsheet'),
 		'#markup' => $proposal_data->dwsim_flowsheet_name,
-	);
+	);*/
 	$headers = array(
 		"User defined compound",
 		"CAS No."
@@ -563,11 +563,11 @@ function om_flowsheet_proposal_status_form($form, &$form_state)
 		'#markup' => $proposal_data->project_title,
 		'#title' => t('Title of the Flowsheet Project')
 	);
-	$form['dwsim_flowsheet_name'] = array(
+	/*$form['dwsim_flowsheet_name'] = array(
 		'#type' => 'item',
 		'#title' => t('Name of the DWSIM flowsheet'),
 		'#markup' => $proposal_data->dwsim_flowsheet_name,
-	);
+	);*/
 	$form['process_development_compound_name'] = array(
 		'#type' => 'item',
 		'#title' => t('Name of compound for which process development is carried out'),
@@ -938,12 +938,12 @@ else{
 		'#required' => TRUE,
 		'#default_value' => $proposal_data->project_title
 	);
-	$form['dwsim_flowsheet_name'] = array(
+	/*$form['dwsim_flowsheet_name'] = array(
             '#type' => 'textfield',
             '#title' => t('The name of DWSIM flowsheet along with its serial number.'),
             '#default_value' => $proposal_data->dwsim_flowsheet_name,
             '#validated' => TRUE,
-	);
+	);*/
 	$form['reference'] = array(
 		'#type' => 'textarea',
 		'#title' => t('Reference of the Flowsheet Project'),

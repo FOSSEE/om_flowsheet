@@ -880,6 +880,7 @@ function _df_list_of_dwsim_flowsheets()
 	$query = db_select('dwsim_flowsheet_proposal');
 	$query->fields('dwsim_flowsheet_proposal');
 	$query->condition('approval_status', 3);
+	$query->orderBy('project_title', 'ASC');
 	$dwsim_flowsheets_list = $query->execute();
 	while ($dwsim_flowsheets_list_data = $dwsim_flowsheets_list->fetchObject())
 	{
