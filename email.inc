@@ -163,9 +163,9 @@ Dear ' . $proposal_data->contributor_name . ',
 
 Congratulations! Your proposal for OpenModelica Flowsheeting Project with the following details is approved.
 
-Full Name : ' . $proposal_data->name_title . ' ' . $proposal_data->contributor_name . '
-Project Title  : ' . $proposal_data->project_title . '
-Name of compound for which process development is carried out  : ' . $proposal_data->process_development_compound_name . '
+Full Name: ' . $proposal_data->name_title . ' ' . $proposal_data->contributor_name . '
+Project Title : ' . $proposal_data->project_title . '
+Name of compound for which process development is carried out : ' . $proposal_data->process_development_compound_name . '
 
 Please ensure that ALL the guidelines for coding at https://om.fossee.in/chemical/flowsheeting-project/coding-guidelines are strictly followed. Refer https://om.fossee.in/chemical/flowsheeting-project/internship for the further procedure for submission of the project. Kindly ensure that the flowsheet and abstract are submitted within 1 month.
 
@@ -218,8 +218,8 @@ Dear ' . $proposal_data->contributor_name . ',
 
 Your OpenModelica flowsheet and abstract on the following process have been published successfully.
 
-Full Name : ' . $proposal_data->name_title . ' ' . $proposal_data->contributor_name . '
-Project Title  : ' . $proposal_data->project_title . '
+Full Name: ' . $proposal_data->name_title . ' ' . $proposal_data->contributor_name . '
+Project Title : ' . $proposal_data->project_title . '
 
 Kindly access this link to download the same.
 https://om.fossee.in/chemical/flowsheeting-project/completed-flowsheet
@@ -274,14 +274,14 @@ FOSSEE, IIT Bombay', array(
 				'body' => t('
 Dear ' . $proposal_data->contributor_name . ',
 
-Your OpenModelica Flowsheeting Project proposal with the following details has been deleted :
+Your OpenModelica Flowsheeting Project proposal with the following details has been deleted:
 
-Full Name : ' . $proposal_data->name_title . ' ' . $proposal_data->contributor_name . '
-Email : ' . $user_data->mail . '
-University/Institute : ' . $proposal_data->university . '
-OpenModelica Version : ' . $proposal_data->version . '
-Project Title  : ' . $proposal_data->project_title . '
-Name of compound for which process development is carried out  : ' . $proposal_data->process_development_compound_name . '
+Full Name: ' . $proposal_data->name_title . ' ' . $proposal_data->contributor_name . '
+Email: ' . $user_data->mail . '
+University/Institute: ' . $proposal_data->university . '
+OpenModelica Version: ' . $proposal_data->version . '
+Project Title : ' . $proposal_data->project_title . '
+Name of compound for which process development is carried out : ' . $proposal_data->process_development_compound_name . '
 
 You can propose a new flowsheet project.
 
@@ -306,8 +306,7 @@ FOSSEE,IIT Bombay', array(
 			$proposal_data = $query->execute()->fetchObject();
 			
 			$user_data = user_load($params['abstract_uploaded']['user_id']);
-			$message['subject'] = t('[!site_name][Flowsheeting Project] You have uploaded OpenModelica flowsheet and abstract
-', array(
+			$message['subject'] = t('[!site_name][Flowsheeting Project] You have uploaded OpenModelica flowsheet and abstract', array(
 				'!site_name' => variable_get('site_name', '')
 			), array(
 				'language' => $language->language
@@ -319,9 +318,9 @@ Dear ' . $proposal_data->contributor_name . ',
 
 You have successfully uploaded your OpenModelica flowsheet and abstract with the following details.
 
-Full Name : ' . $proposal_data->name_title . ' ' . $proposal_data->contributor_name . '
-Project Title  : ' . $proposal_data->project_title . '
-Name of compound for which process development is carried out  : ' . $proposal_data->process_development_compound_name . '
+Full Name: ' . $proposal_data->name_title . ' ' . $proposal_data->contributor_name . '
+Project Title : ' . $proposal_data->project_title . '
+Name of compound for which process development is carried out : ' . $proposal_data->process_development_compound_name . '
 
 You shall be notified via email after the flowsheet and abstract are reviewed and approved / disapproved. This may take upto 45 working days.
 
@@ -363,10 +362,10 @@ Dear !user_name,
 
 Your following solution has been approved:
 
-Experiment Title : ' . $experiment_data->title . '
+Experiment Title: ' . $experiment_data->title . '
 
-Solution number : ' . $solution_data->code_number . '
-Caption : ' . $solution_data->caption . '
+Solution number: ' . $solution_data->code_number . '
+Caption: ' . $solution_data->caption . '
 
 Please ensure that ALL the codes follow guidelines at https://om.fossee.in/om-flowsheet-project/om-flowsheet-guidelines
 
@@ -395,10 +394,10 @@ Dear !user_name,
 
 Your following solution has been disapproved:
 
-Solution number : ' . $params['solution_disapproved']['solution_number'] . '
-Caption : ' . $params['solution_disapproved']['solution_caption'] . '
+Solution number: ' . $params['solution_disapproved']['solution_number'] . '
+Caption: ' . $params['solution_disapproved']['solution_caption'] . '
 
-Reason for dis-approval : ' . $params['solution_disapproved']['message'] . '
+Reason for dis-approval: ' . $params['solution_disapproved']['message'] . '
 
 
 Best Wishes,
@@ -424,13 +423,13 @@ FOSSEE, IIT Bombay', array(
 				'body' => t('
 Dear !user_name,
 
-Your following pending solution has been deleted :
+Your following pending solution has been deleted:
 
-Title of the Lab : ' . $params['solution_deleted_user']['lab_title'] . '
-Title of the Experiment : ' . $params['solution_deleted_user']['experiment_title'] . '
+Title of the Lab: ' . $params['solution_deleted_user']['lab_title'] . '
+Title of the Experiment: ' . $params['solution_deleted_user']['experiment_title'] . '
 
-Solution number : ' . $params['solution_deleted_user']['solution_number'] . '
-Caption : ' . $params['solution_deleted_user']['solution_caption'] . '
+Solution number: ' . $params['solution_deleted_user']['solution_number'] . '
+Caption: ' . $params['solution_deleted_user']['solution_caption'] . '
 
 
 Best Wishes,
@@ -457,7 +456,7 @@ FOSSEE, IIT Bombay', array(
 				'body' => t('
 Dear !user_name,
 
-You have uploaded following dependency files :
+You have uploaded following dependency files:
     ' . $dependency_files . '
 
 Please ensure that ALL the codes follow guidelines at https://om.fossee.in/om-flowsheet-project/om-flowsheet-guidelines
