@@ -133,7 +133,8 @@ FOSSEE, IIT Bombay', array(
 			$query->range(0, 1);
 			$proposal_data = $query->execute()->fetchObject();
 			$user_data = user_load($params['om_flowsheet_proposal_approved']['user_id']);
-			$url = 'https://om.fossee.in/flowsheeting-project/coding-guidelines';
+			$code_submission_url = l('here', 'https://om.fossee.in/chemical/flowsheeting-project/abstract-code');
+			$url = 'https://om.fossee.in/chemical/flowsheeting-project/coding-guidelines';
 			if ($proposal_data->project_guide_name == "NULL" || $proposal_data->project_guide_name == "")
 			{
 				$project_guide_name = "Not Entered";
@@ -166,9 +167,9 @@ Full Name : ' . $proposal_data->name_title . ' ' . $proposal_data->contributor_n
 Project Title  : ' . $proposal_data->project_title . '
 Name of compound for which process development is carried out  : ' . $proposal_data->process_development_compound_name . '
 
-Please ensure that ALL the guidelines for coding at https://om.fossee.in/flowsheeting-project/coding-guidelines are strictly followed. Refer https://om.fossee.in/flowsheeting-project/internship for the further procedure for submission of the project. Kindly ensure that the flowsheet and abstract are submitted within 1 month.
+Please ensure that ALL the guidelines for coding at https://om.fossee.in/chemical/flowsheeting-project/coding-guidelines are strictly followed. Refer https://om.fossee.in/chemical/flowsheeting-project/internship for the further procedure for submission of the project. Kindly ensure that the flowsheet and abstract are submitted within 1 month.
 
-You can upload your abstract using abstract and flowsheet submission interface' . l('here', 'https://om.fossee.in/flowsheeting-project/abstract-code') . '
+You can upload your abstract using abstract and flowsheet submission interface ' . $code_submission_url . '.
 
 Best Wishes,
 
@@ -221,7 +222,7 @@ Full Name : ' . $proposal_data->name_title . ' ' . $proposal_data->contributor_n
 Project Title  : ' . $proposal_data->project_title . '
 
 Kindly access this link to download the same.
-https://om.fossee.in/flowsheeting-project/completed-flowsheet
+https://om.fossee.in/chemical/flowsheeting-project/completed-flowsheet
 
 You can now download your e-certificate after logging into the om website: om.fossee.in.  On the left-hand side panel, go to User Dashboard > Flowsheet Certificates > Download. In case of any difficulties, kindly let us know.
 
