@@ -1068,6 +1068,8 @@ function om_flowsheet_proposal_edit_form_submit($form, &$form_state)
 		//db_query("DELETE FROM {om_flowsheet_proposal} WHERE id = %d", $proposal_id);
 		if (om_rrmdir_project($proposal_id) == TRUE)
 		{
+			db_delete('om_flowsheet_submitted_abstracts_file')->condition('proposal_id', $proposal_id)->execute();
+			db_delete('om_flowsheet_submitted_abstracts')->condition('proposal_id', $proposal_id)->execute();
 			$query = db_delete('om_flowsheet_proposal');
 			$query->condition('id', $proposal_id);
 			$num_deleted = $query->execute();
