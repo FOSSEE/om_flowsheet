@@ -11,7 +11,7 @@ function generate_pdf()
 		':uid' => $user->uid,
 		':proposal_id'=>$proposal_id
 	));
-	$data3             = $query3->fetchObject();
+	$data3 = $query3->fetchObject();
 	if($data3){
 	if($data3->uid != $x){
 		drupal_set_message('Certificate is not available','error');
@@ -62,7 +62,7 @@ function generate_pdf()
 	$pdf->SetTextColor(0, 0, 0);
 	$pdf->Cell(240, 10, 'This is to certify that', '0', '1', 'C');
 	$pdf->Ln(0);
-	$pdf->SetFont('Times', 'I', 18);
+	$pdf->SetFont('Times', 'I', 20);
 	//$pdf->SetFont('Arial', 'BI', 25);
 	$pdf->SetTextColor(37, 22, 247);
 	$contributor_name = WordWrap($data3->contributor_name,70);
@@ -91,10 +91,10 @@ function generate_pdf()
 		$pdf->Ln(2);
 		//$pdf->Cell(320, 8, 'The work done is available at', '0', '1', 'C');
 		//$pdf->Cell(320, 4, '', '0', '1', 'C');
-		$pdf->SetX(85);
+		$pdf->SetX(75);
 		$pdf->SetFont('Times', 'I', 'U');
 		$pdf->SetTextColor(37, 22, 247);
-		$pdf->write(0, 'https://om.fossee.in/flowsheeting-project', 'https://om.fossee.in/flowsheeting-project');
+		$pdf->write(0, 'https://om.fossee.in/chemical/flowsheeting-project', 'https://om.fossee.in/chemical/flowsheeting-project');
 		$pdf->Ln(0);
 		//$pdf->SetFont('Times', 'I', 16);
 		//$pdf->Cell(320, 8, 'under Case Study Project', '0', '1', 'C');
@@ -157,7 +157,7 @@ function generate_pdf()
 	else {
 		$UniqueString = $DBString;
 	}
-	$codeContents        = "https://om.fossee.in/flowsheeting-project/certificates/verify/" . $UniqueString;
+	$codeContents        = "https://om.fossee.in/chemical/flowsheeting-project/certificates/verify/" . $UniqueString;
 	$fileName            = 'generated_qrcode.png';
 	$pngAbsoluteFilePath = $tempDir . $fileName;
 	$urlRelativeFilePath = $path . "/pdf/temp_prcode/" . $fileName;

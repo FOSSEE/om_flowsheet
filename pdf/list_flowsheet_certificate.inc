@@ -25,7 +25,7 @@ function _list_flowsheet_certificates()
 					$search_rows[] = array(
 						$search_data3->project_title,
 						$search_data3->contributor_name,
-						l('Download Certificate', 'flowsheeting-project/certificates/generate-pdf/' . $search_data3->id)
+						l('Download Certificate', 'chemical/flowsheeting-project/certificates/generate-pdf/' . $search_data3->id)
 					);
 				} //$search_data3->id
 			} //$search_data3 = $query3->fetchObject()
