@@ -47,7 +47,7 @@ function om_flowsheet_proposal_form($form, &$form_state, $no_js_use = FALSE)
 		if ($proposal_data->approval_status == 0 || $proposal_data->approval_status == 1)
 		{
 			drupal_set_message(t('We have already received your proposal.'), 'status');
-			drupal_goto('chemical/flowsheeting-project');
+			drupal_goto('chemical');
 			return;
 		} //$proposal_data->approval_status == 0 || $proposal_data->approval_status == 1
 	} //$proposal_data
@@ -677,5 +677,5 @@ function om_flowsheet_proposal_form_submit($form, &$form_state)
 	if (!drupal_mail('om_flowsheet', 'om_flowsheet_proposal_received', $email_to, user_preferred_language($user), $params, $form, TRUE))
 		drupal_set_message('Error sending email message.', 'error');
 	drupal_set_message(t('We have received your OpenModelica Flowsheeting proposal. We will get back to you soon.'), 'status');
-	drupal_goto('chemical/flowsheeting-project');
+	drupal_goto('chemical');
 }
