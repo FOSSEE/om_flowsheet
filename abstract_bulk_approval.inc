@@ -494,7 +494,7 @@ function _flowsheet_details($flowsheet_proposal_id)
 	$return_html .= '<strong>Name of compound for which process development is carried out:</strong><br />' . $prodata;
 	$return_html .= '<strong>Uploaded an abstract (brief outline) of the project:</strong><br />' . $abstract_filename . '<br /><br />';
 	$return_html .= '<strong>Upload the OpenModelica flowsheet for the developed process:</strong><br />' . $abstracts_query_process_filename . '<br /><br />';
-	$return_html .= '<strong>Upload the OpenModelica flowsheet for the simulator package:</strong><br />' . $simulator_version_used . '<br /><br />';
+	$return_html .= '<strong>Simulator version used for creating the flowsheet:</strong><br />' . $simulator_version_used . '<br /><br />';
 	$return_html .= $download_flowsheet;
 	return $return_html;
 }
