@@ -13,6 +13,7 @@ function om_flowsheet_download_full_project()
 	$FLOWSHEET_PATH = $flowsheet_data->directory_name . '/';
 	/* zip filename */
 	$zip_filename = $root_path . 'zip-' . time() . '-' . rand(0, 999999) . '.zip';
+	//var_dump($zip_filename);die;
 	/* creating zip archive on the server */
 	$zip = new ZipArchive();
 	$zip->open($zip_filename, ZipArchive::CREATE);
@@ -28,7 +29,9 @@ function om_flowsheet_download_full_project()
 		$zip->addFile($root_path . $FLOWSHEET_PATH . '/' . $flowsheet_f_row->filepath, $FLOWSHEET_PATH . str_replace(' ', '_', basename($flowsheet_f_row->filename)));
 	} //$flowsheet_f_row = $flowsheet_f_q->fetchObject()
 	$zip_file_count = $zip->numFiles;
+	//var_dump($zip_file_count);die;
 	$zip->close();
+	//var_dump(filesize($zip_filename));die;
 	if ($zip_file_count > 0) {
 		if ($user->uid) {
 			/* download zip file */
@@ -36,10 +39,11 @@ function om_flowsheet_download_full_project()
 			header('Content-disposition: attachment; filename="' . str_replace(' ', '_', $flowsheet_data->project_title) . '.zip"');
 			header('Content-Length: ' . filesize($zip_filename));
 			readfile($zip_filename);
-			unlink($zip_filename);
-			ob_clean();
 			ob_end_flush();
+			ob_clean();
 			flush();
+			unlink($zip_filename);
+			
 		} //$user->uid
 		else {
 			header('Content-Type: application/zip');
@@ -49,10 +53,11 @@ function om_flowsheet_download_full_project()
 			header('Expires: 0');
 			header('Pragma: no-cache');
 			readfile($zip_filename);
-			unlink($zip_filename);
-			ob_clean();
 			ob_end_flush();
+			ob_clean();
 			flush();
+			unlink($zip_filename);
+			
 		}
 	} //$zip_file_count > 0
 	else {
@@ -73,6 +78,7 @@ function om_flowsheet_download_completed_project()
 	$FLOWSHEET_PATH = $flowsheet_data->directory_name . '/';
 	/* zip filename */
 	$zip_filename = $root_path . 'zip-' . time() . '-' . rand(0, 999999) . '.zip';
+	var_dump($zip_filename);die;
 	/* creating zip archive on the server */
 	$zip = new ZipArchive();
 	$zip->open($zip_filename, ZipArchive::CREATE);
