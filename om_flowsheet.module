@@ -621,7 +621,7 @@ function om_flowsheet_get_proposal()
 	if (!$proposal_data)
 	{
 		drupal_set_message("You do not have any approved om Flowsheet proposal. Please propose the flowsheet proposal", 'error');
-		drupal_goto('');
+		drupal_goto('chemical/flowsheeting-project');
 	} //!$proposal_data
 	switch ($proposal_data->approval_status)
 	{

@@ -7,7 +7,7 @@ function om_flowsheet_abstract()
 	$proposal_data = om_flowsheet_get_proposal();
 	if (!$proposal_data)
 	{
-		drupal_goto('');
+		drupal_goto('chemical/flowsheeting-project');
 		return;
 	} //!$proposal_data
 	//$return_html .= l('Upload abstract', 'flowsheeting-project/abstract-code/upload') . '<br />';
@@ -453,7 +453,7 @@ function om_flowsheet_upload_abstract_code_form_submit($form, &$form_state)
 	$proposal_id = $proposal_data->id;
 	if (!$proposal_data)
 	{
-		drupal_goto('');
+		drupal_goto('chemical/flowsheeting-project');
 		return;
 	} //!$proposal_data
 	$proposal_id = $proposal_data->id;
