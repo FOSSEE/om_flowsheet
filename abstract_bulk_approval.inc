@@ -145,7 +145,7 @@ Your OpenModelica flowsheet and abstract with the following details have been ap
 
 Full Name: ' . $user_info->name_title . ' ' . $user_info->contributor_name . '
 Project Title: ' . $user_info->project_title . '
-Name of compound for which process development is carried out  : ' . $user_info->process_development_compound_name . '
+Name of compound for which process development is carried out: ' . $user_info->process_development_compound_name . '
 
 Kindly send us the internship forms available at https://om.fossee.in/chemical/flowsheeting-project/internship/forms as early as possible for processing your honorarium on time. In case you have already sent these forms, please share the the consignment number or tracking id with us.
 
@@ -225,7 +225,7 @@ We regret to inform you that your OpenModelica flowsheet and abstract with the f
 
 Full Name: ' . $user_info->name_title . ' ' . $user_info->contributor_name . '
 Project Title: ' . $user_info->project_title . '
-Name of compound for which process development is carried out  : ' . $user_info->process_development_compound_name . '
+Name of compound for which process development is carried out: ' . $user_info->process_development_compound_name . '
 Reason for Disapproval / Feedback: ' . $form_state['values']['disapprove_message'] . ' 
  
 You are requested to visit the Abstract and Flowsheet submission page at https://om.fossee.in/chemical/flowsheeting-project/abstract-code and re-upload the flowsheet and abstract.
@@ -293,7 +293,7 @@ We regret to inform you that your OpenModelica flowsheet and abstract along with
 
 Full Name: ' . $user_info->name_title . ' ' . $user_info->contributor_name . '
 Project Title: ' . $user_info->project_title . '
-Name of compound for which process development is carried out  : ' . $user_info->process_development_compound_name . '
+Name of compound for which process development is carried out: ' . $user_info->process_development_compound_name . '
 Reason for dis-approval: ' . $form_state['values']['deletion_message'] . '
 
 Now, you can propose a new flowsheet.
