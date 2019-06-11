@@ -164,8 +164,8 @@ Dear ' . $proposal_data->contributor_name . ',
 Congratulations! Your proposal for OpenModelica Flowsheeting Project with the following details is approved.
 
 Full Name: ' . $proposal_data->name_title . ' ' . $proposal_data->contributor_name . '
-Project Title : ' . $proposal_data->project_title . '
-Name of compound for which process development is carried out : ' . $proposal_data->process_development_compound_name . '
+Project Title: ' . $proposal_data->project_title . '
+Name of compound for which process development is carried out: ' . $proposal_data->process_development_compound_name . '
 
 Please ensure that ALL the guidelines for coding at https://om.fossee.in/chemical/flowsheeting-project/coding-guidelines are strictly followed. Refer https://om.fossee.in/chemical/flowsheeting-project/internship for the further procedure for submission of the project. Kindly ensure that the flowsheet and abstract are submitted within 1 month.
 
@@ -219,7 +219,7 @@ Dear ' . $proposal_data->contributor_name . ',
 Your OpenModelica flowsheet and abstract on the following process have been published successfully.
 
 Full Name: ' . $proposal_data->name_title . ' ' . $proposal_data->contributor_name . '
-Project Title : ' . $proposal_data->project_title . '
+Project Title: ' . $proposal_data->project_title . '
 
 Kindly access this link to download the same.
 https://om.fossee.in/chemical/flowsheeting-project/completed-flowsheet
@@ -280,8 +280,8 @@ Full Name: ' . $proposal_data->name_title . ' ' . $proposal_data->contributor_na
 Email: ' . $user_data->mail . '
 University/Institute: ' . $proposal_data->university . '
 OpenModelica Version: ' . $proposal_data->version . '
-Project Title : ' . $proposal_data->project_title . '
-Name of compound for which process development is carried out : ' . $proposal_data->process_development_compound_name . '
+Project Title: ' . $proposal_data->project_title . '
+Name of compound for which process development is carried out: ' . $proposal_data->process_development_compound_name . '
 
 You can propose a new flowsheet project.
 
@@ -319,8 +319,8 @@ Dear ' . $proposal_data->contributor_name . ',
 You have successfully uploaded your OpenModelica flowsheet and abstract with the following details.
 
 Full Name: ' . $proposal_data->name_title . ' ' . $proposal_data->contributor_name . '
-Project Title : ' . $proposal_data->project_title . '
-Name of compound for which process development is carried out : ' . $proposal_data->process_development_compound_name . '
+Project Title: ' . $proposal_data->project_title . '
+Name of compound for which process development is carried out: ' . $proposal_data->process_development_compound_name . '
 
 You shall be notified via email after the flowsheet and abstract are reviewed and approved / disapproved. This may take upto 45 working days.
 
