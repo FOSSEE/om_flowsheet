@@ -780,7 +780,7 @@ function om_flowsheet_proposal_edit_form($form, &$form_state)
 		'#title' => t('Version'),
 		'#required' => TRUE,
 		'#default_value' => $proposal_data->version,
-		'#options' => _df_list_of_software_version()
+		'#options' => _om_df_list_of_software_version()
 	);
 	$form['student_email_id'] = array(
 		'#type' => 'item',
