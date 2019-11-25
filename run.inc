@@ -44,7 +44,7 @@ function om_flowsheet_run_form($form, &$form_state)
 		);
 		$form['selected_flowsheet'] = array(
 			'#type' => 'item',
-			'#markup' => '<div id="ajax_selected_flowsheet">' . l('Download Flowsheet', 'chemical/flowsheeting-project/full-download/project/' . $flowsheet_default_value,array('attributes' => array('title' => 'This is a zip file containing a pdf (abstract) and a mo file which is the OpenModelica flowsheet which is to be viewed by right clicking on the file and opening with OpenModelica.'))) . '</div>'
+			'#markup' => '<div id="ajax_selected_flowsheet">' . l('Download Flowsheet', 'chemical/flowsheeting-project/full-download/project/' . $flowsheet_default_value,array('attributes' => array('title' => 'This is a zip file containing a pdf (abstract) and a mo file which is the OpenModelica flowsheet which is to be viewed by right clicking on the file and opening with OpenModelica.'))) . '</div><hr><p style="color:red;">Note: This flowsheet is compatible with the simulator version mentioned above. To simulate the flowsheet in OpenModelica, it must be opened with the above Simulator version.<br>To download the Simulator, click on the Simulator version mentioned above.</p>'
 		);
 	}
 	return $form;
