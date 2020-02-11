@@ -6,7 +6,7 @@ function om_flowsheet_completed_proposals_all()
 	$query = db_select('om_flowsheet_proposal');
 	$query->fields('om_flowsheet_proposal');
 	$query->condition('approval_status', 3);
-	$query->orderBy('actual_completion_date', 'ASC');
+	$query->orderBy('actual_completion_date', 'DESC');
 	$result = $query->execute();
 	if ($result->rowCount() == 0)
 	{
@@ -34,8 +34,8 @@ function om_flowsheet_completed_proposals_all()
 			'No',
 			'Flowsheet Project',
 			'Contributor Name',
-			'Institution',
-			'Year'
+			'University / Institute',
+			'Year of Completion'
 		);
 		$output .= theme('table', array(
 			'header' => $preference_header,
@@ -78,7 +78,7 @@ function om_flowsheet_progress_all()
 			'No',
 			'Flowsheet Project',
 			'Contributor Name',
-			'Institution',
+			'University / Institute',
 			'Year'
 		);
 		$page_content .= theme('table', array(
