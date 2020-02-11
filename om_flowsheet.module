@@ -249,10 +249,10 @@ function om_flowsheet_menu()
 		'file' => 'upload_code_delete.inc'
 	);
 	/* CODE DOWNLOADS */
-	$items['chemical/flowsheeting-project/download/file'] = array(
+	$items['chemical/flowsheeting-project/download/abstract-file'] = array(
 		'title' => 'Code Download',
 		'description' => 'Code Download',
-		'page callback' => 'om_flowsheet_download_solution_file',
+		'page callback' => 'om_flowsheet_download_abstract_file',
 		'access arguments' => array(
 			'om flowsheet download code'
 		),
