@@ -17,7 +17,7 @@ function om_flowsheet_completed_proposals_all()
 	{
 		$output .= "Work has been completed for the following flow sheets. We welcome your contributions. For more details, please visit ".l("https://om.fossee.in/chemical/flowsheeting-project","https://om.fossee.in/chemical/flowsheeting-project", array('attributes' => array('target' => '_blank')))."<hr>";
 		$preference_rows = array();
-		$i = 1;
+		$i = $result->rowCount();
 		while ($row = $result->fetchObject())
 		{
 			$completion_date = date("Y", $row->actual_completion_date);
@@ -28,7 +28,7 @@ function om_flowsheet_completed_proposals_all()
 				$row->university,
 				$completion_date
 			);
-			$i++;
+			$i--;
 		} //$row = $result->fetchObject()
 		$preference_header = array(
 			'No',
